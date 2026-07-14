@@ -1,0 +1,87 @@
+import SwiftUI
+
+/// The "vessel with a wave" — hero of the home screen. Liquid level = goal progress.
+struct LiquidGauge: View {
+    var totalML: Int
+    var goalML: Int
+
+    private var progress: Double { min(1, Double(totalML) / Double(max(1, goalML))) }
+    private var goalReached: Bool { totalML >= goalML }
+
+    var body: some View {
+        ZStack {
+            // Liquid with a drifting wave
+            TimelineView(.animation(minimumInterval: 1.0 / 30.0)) { timeline in
+                let phase = timeline.date.timeIntervalSinceReferenceDate
+                WaveShape(level: progress, phase: phase)
+                    .fill(goalReached ? Theme.goalGradient : Theme.liquidGradient)
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 60, style: .continuous))
+
+            // Top gloss
+            LinearGradient(colors: [.white.opacity(0.16), .clear],
+                           startPoint: .top, endPoint: .init(x: 0.5, y: 0.35))
+                .clipShape(RoundedRectangle(cornerRadius: 60, style: .continuous))
+                .allowsHitTesting(false)
+
+            // Readings
+            VStack(spacing: 4) {
+                Text(verbatim: "\(Int((Double(totalML) / Double(max(1, goalML)) * 100).rounded()))%")
+                    .font(.system(size: 52, weight: .heavy, design: .rounded))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.textPrimary)
+                    .shadow(color: Theme.bg.opacity(0.5), radius: 10, y: 2)
+                    .contentTransition(.numericText())
+                (goalReached
+                     ? Text(verbatim: "\(String(localized: "Goal reached 🎉")) · \(VolumeFormatter.string(ml: totalML))")
+                     : Text("\(VolumeFormatter.string(ml: totalML)) of \(VolumeFormatter.string(ml: goalML))"))
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(Theme.textPrimary.opacity(0.85))
+            }
+        }
+        .frame(width: 200, height: 235)
+        .background(
+            LinearGradient(colors: [Theme.glassRaised, Theme.glass],
+                           startPoint: .top, endPoint: .bottom),
+            in: RoundedRectangle(cornerRadius: 60, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 60, style: .continuous)
+            .strokeBorder(Theme.stroke, lineWidth: 1.5))
+        .shadow(color: (goalReached ? Theme.success : Theme.aqua).opacity(0.30),
+                radius: 30, y: 18)
+        .animation(.spring(duration: 0.7, bounce: 0.3), value: progress)
+        .accessibilityLabel(Text(String(localized: "Progress: \(totalML) of \(goalML) millilitres")))
+    }
+}
+
+/// Sine wave for the liquid surface.
+struct WaveShape: Shape {
+    var level: Double        // 0...1 — fill fraction
+    var phase: Double        // time, drives the wave drift
+    var amplitude: CGFloat = 5
+
+    var animatableData: Double {
+        get { level }
+        set { level = newValue }
+    }
+
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        guard level > 0.001 else { return path }
+        let surfaceY = rect.height * (1 - CGFloat(level))
+        let wavelength = rect.width / 1.4
+        let amp = level >= 0.999 ? 0 : amplitude
+
+        path.move(to: CGPoint(x: 0, y: surfaceY))
+        var x: CGFloat = 0
+        while x <= rect.width {
+            let relative = x / wavelength
+            let y = surfaceY + sin((relative + CGFloat(phase.truncatingRemainder(dividingBy: 1000)) * 0.9) * 2 * .pi) * amp
+            path.addLine(to: CGPoint(x: x, y: y))
+            x += 2
+        }
+        path.addLine(to: CGPoint(x: rect.width, y: rect.height))
+        path.addLine(to: CGPoint(x: 0, y: rect.height))
+        path.closeSubpath()
+        return path
+    }
+}
