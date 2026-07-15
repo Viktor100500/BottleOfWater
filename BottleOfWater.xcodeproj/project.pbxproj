@@ -23,6 +23,7 @@
 		7024E1C60E8DDD2E7D34BF6E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3ECEC9BE65B63D7D20441CC6 /* Localizable.xcstrings */; };
 		7CB6E84DCF8C2635BB879968 /* BottleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774983F39E413D0BC5D96524 /* BottleWidget.swift */; };
 		8226AC71AC3C643782680FDF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76D9F8D10C5787E61F3E555 /* SettingsView.swift */; };
+		90BCE47C3007FB6300BF1433 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96361A49D79F79C578011FE0 /* Theme.swift */; };
 		9AD125B3BF0CF31B93673DE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EA88B6C765B1228270DAE2 /* Assets.xcassets */; };
 		AD2FB499946C508BAE739363 /* ReminderPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E90266B5845C8DF4B38BEF /* ReminderPlanner.swift */; };
 		AFD6C1E0CBC2AFE876E6F8DD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96361A49D79F79C578011FE0 /* Theme.swift */; };
@@ -120,6 +121,14 @@
 			path = Widget;
 			sourceTree = "<group>";
 		};
+		90BCE47B3007FB5200BF1433 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				96361A49D79F79C578011FE0 /* Theme.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
 		AD2FAE7B54A49FCFB675B953 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +149,7 @@
 		E81285B6F56E5FEB1A79C8D9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				90BCE47B3007FB5200BF1433 /* DesignSystem */,
 				66791AC10DC49C03DD88E928 /* BottleShared.swift */,
 				2A5AA11998EC5417EDCF21AD /* HealthKitService.swift */,
 				94D9DB916A9B5B463E4CBFCE /* HydrationService.swift */,
@@ -161,7 +171,6 @@
 				28E90266B5845C8DF4B38BEF /* ReminderPlanner.swift */,
 				5174AD0CDCC00A40192BCCE8 /* RemindersView.swift */,
 				E76D9F8D10C5787E61F3E555 /* SettingsView.swift */,
-				96361A49D79F79C578011FE0 /* Theme.swift */,
 				BA578E548177E878D7393CCB /* TodayView.swift */,
 			);
 			path = Sources;
@@ -281,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				241B7A0E4B1B69086B3BCF13 /* BottleShared.swift in Sources */,
+				90BCE47C3007FB6300BF1433 /* Theme.swift in Sources */,
 				7CB6E84DCF8C2635BB879968 /* BottleWidget.swift in Sources */,
 				322CDEAC26FA7EC889F72A69 /* HealthKitService.swift in Sources */,
 				DD2A6AD02A0CA16D879BCB3D /* HydrationService.swift in Sources */,

@@ -198,22 +198,27 @@ struct RemindersView: View {
                     .labelsHidden()
             }
             .listRowBackground(Theme.glass)
+            .deleteDisabled(meals.count <= 1)   // минимум один приём пищи
         }
         .onDelete { offsets in
-            if meals.count > 1 { meals.remove(atOffsets: offsets) }
+            var updated = meals
+            updated.remove(atOffsets: offsets)
+            guard !updated.isEmpty else { return }
+            meals = updated
         }
 
-        Button {
-            withAnimation {
-                meals.append(MealTime(minutesFromMidnight: 16 * 60,
-                                      label: String(localized: "Snack")))
+        if meals.count < 10 {   // максимум десять — кнопка исчезает
+            Button {
+                withAnimation {
+                    meals.append(MealTime(minutesFromMidnight: 16 * 60,
+                                          label: String(localized: "Snack")))
+                }
+            } label: {
+                Label("Add meal", systemImage: "plus.circle.fill")
+                    .foregroundStyle(Theme.aqua)
             }
-        } label: {
-            Label("Add meal", systemImage: "plus.circle.fill")
-                .foregroundStyle(Theme.aqua)
+            .listRowBackground(Theme.glass)
         }
-        .listRowBackground(Theme.glass)
-        .disabled(meals.count >= 10)
     }
 
     @ViewBuilder

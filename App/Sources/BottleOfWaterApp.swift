@@ -32,8 +32,9 @@ struct RootView: View {
             UIApplication.dismissKeyboard()
         }
         .onChange(of: scenePhase) {
-            // Push widget-created entries to Apple Health when returning to the app.
-            if scenePhase == .active {
+            // Форс-синхронизация с Apple Health в критических точках:
+            // возврат в приложение и уход в фон (flush защищён от повторного входа).
+            if scenePhase == .active || scenePhase == .background {
                 Task { await HydrationService.shared.flushPendingHealth() }
             }
         }

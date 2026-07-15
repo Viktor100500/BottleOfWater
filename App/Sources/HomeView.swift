@@ -180,7 +180,7 @@ struct HomeView: View {
             } label: {
                 Text("Add")
                     .font(.body.weight(.heavy))
-                    .foregroundStyle(Color(red: 0.016, green: 0.071, blue: 0.11))
+                    .foregroundStyle(Theme.ink)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 14)
                     .background(Theme.primaryGradient,

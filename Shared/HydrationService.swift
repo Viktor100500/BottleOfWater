@@ -25,6 +25,9 @@ final class HydrationService {
     @discardableResult
     func log(volumeML: Int, source: EntrySource, date: Date = .now) -> WaterEntry {
         let entry = WaterEntry(timestamp: date, volumeML: volumeML, source: source)
+        // pending до подтверждённой записи в Health: если синхронизацию прервут
+        // (смерть процесса и т.п.), flushPendingHealth дошлёт её без дублей.
+        entry.pendingHealthSync = true
         context.insert(entry)
         try? context.save()
         WidgetCenter.shared.reloadAllTimelines()
@@ -32,18 +35,38 @@ final class HydrationService {
     }
 
     func syncToHealth(_ entry: WaterEntry) async {
-        entry.healthKitID = await HealthKitService.shared.save(volumeML: entry.volumeML,
-                                                               date: entry.timestamp)
-        entry.pendingHealthSync = false
+        if entry.healthKitID == nil {
+            // Прошлая попытка могла прерваться ПОСЛЕ записи в Health —
+            // сначала ищем сэмпл по external UUID и усыновляем его (никаких дублей).
+            entry.healthKitID = await HealthKitService.shared.existingSampleID(entryID: entry.id)
+        }
+        if entry.healthKitID == nil {
+            entry.healthKitID = await HealthKitService.shared.save(volumeML: entry.volumeML,
+                                                                   date: entry.timestamp,
+                                                                   entryID: entry.id)
+        }
+        if entry.healthKitID != nil {
+            entry.pendingHealthSync = false
+        }
         try? context.save()
     }
 
     func delete(_ entry: WaterEntry) async {
-        let hkID = entry.healthKitID
+        let entryID = entry.id
+        let sampleID = entry.healthKitID
         context.delete(entry)
         try? context.save()
         WidgetCenter.shared.reloadAllTimelines()
-        if let hkID { await HealthKitService.shared.delete(sampleID: hkID) }
+
+        var ok = await HealthKitService.shared.delete(entryID: entryID)
+        if let sampleID {
+            ok = await HealthKitService.shared.delete(sampleID: sampleID) && ok
+        }
+        if !ok {
+            // Health сейчас недоступен — дочистим в flushPendingHealth().
+            SettingsStore.pendingHealthDeletes.append(entryID)
+            if let sampleID { SettingsStore.pendingHealthDeletes.append(sampleID) }
+        }
     }
 
     /// Undo the last of today's entries.
@@ -54,18 +77,31 @@ final class HydrationService {
 
     // MARK: Reconciliation with Apple Health
 
-    /// Push widget-created entries to Health and process widget-queued deletions.
-    /// Called when the app becomes active. Also nudges the main context so
-    /// `@Query`-backed views pick up rows the widget wrote in another process.
+    private var isFlushing = false
+
+    /// Форс-синхронизация с Apple Health: дошлифовывает записи, чья синхронизация
+    /// прервалась, и выполняет отложенные удаления. Вызывается в критических точках
+    /// (запуск, возврат в приложение, уход в фон). Защищена от параллельного входа —
+    /// одновременный двойной flush и был источником дублей в Health.
     func flushPendingHealth() async {
-        // 1. Deletions queued by the widget's undo.
+        guard !isFlushing else { return }
+        isFlushing = true
+        defer { isFlushing = false }
+
+        // 1. Отложенные удаления (из виджета или при недоступном Health).
         let deletes = SettingsStore.pendingHealthDeletes
         if !deletes.isEmpty {
-            for id in deletes { await HealthKitService.shared.delete(sampleID: id) }
-            SettingsStore.pendingHealthDeletes = []
+            var remaining: [UUID] = []
+            for id in deletes {
+                let byEntry = await HealthKitService.shared.delete(entryID: id)
+                let bySample = await HealthKitService.shared.delete(sampleID: id)
+                if !(byEntry && bySample) { remaining.append(id) }
+            }
+            SettingsStore.pendingHealthDeletes = remaining
         }
 
-        // 2. Entries the widget saved without Health access.
+        // 2. Записи, не дошедшие до Health (syncToHealth дедуплицирует и сохраняет
+        //    контекст после каждой записи — прерывание не откатывает уже сделанное).
         let descriptor = FetchDescriptor<WaterEntry>(
             predicate: #Predicate { $0.pendingHealthSync == true })
         let pending = (try? context.fetch(descriptor)) ?? []
@@ -73,7 +109,6 @@ final class HydrationService {
             await syncToHealth(entry)
         }
 
-        try? context.save()
         WidgetCenter.shared.reloadAllTimelines()
     }
 

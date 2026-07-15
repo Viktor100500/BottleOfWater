@@ -10,7 +10,7 @@ final class TiltMotion: ObservableObject {
 
     func start() {
         guard manager.isDeviceMotionAvailable, !manager.isDeviceMotionActive else { return }
-        manager.deviceMotionUpdateInterval = 1.0 / 30.0
+        manager.deviceMotionUpdateInterval = 1.0 / 60.0
         manager.startDeviceMotionUpdates(to: .main) { [weak self] motion, _ in
             guard let g = motion?.gravity else { return }
             // Roll of the device relative to upright portrait.
@@ -37,8 +37,10 @@ struct LiquidGauge: View {
 
     var body: some View {
         ZStack {
-            // Liquid with a drifting wave; surface stays level as the phone tilts
-            TimelineView(.animation(minimumInterval: 1.0 / 30.0)) { timeline in
+            // Liquid with a drifting wave; surface stays level as the phone tilts.
+            // .animation without minimumInterval renders at display refresh rate
+            // (60 fps, 120 on ProMotion).
+            TimelineView(.animation) { timeline in
                 let phase = timeline.date.timeIntervalSinceReferenceDate
                 WaveShape(level: progress, phase: phase, tilt: motion.tilt)
                     .fill(goalReached ? Theme.goalGradient : Theme.liquidGradient)

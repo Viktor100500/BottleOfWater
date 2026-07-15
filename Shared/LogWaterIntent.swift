@@ -2,9 +2,9 @@ import AppIntents
 import Foundation
 
 /// Quick-log intent for widget buttons (Home Screen / Lock Screen).
-/// Executes in the widget process and writes locally only — no HealthKit here
-/// (unavailable in extensions), so the intent never fails and the tap runs the
-/// action instead of falling back to opening the app.
+/// Saves locally first (instant widget update), then writes to Apple Health
+/// directly from the extension; on Health failure the entry stays pending and
+/// the app re-syncs it — the intent itself never throws.
 struct LogWaterIntent: AppIntent {
     static let title: LocalizedStringResource = "Log water"
     static let description = IntentDescription("Adds water to Bottle of Water and Apple Health.")
@@ -21,7 +21,7 @@ struct LogWaterIntent: AppIntent {
 
     func perform() async throws -> some IntentResult {
         guard SettingsStore.widgetLoggingEnabled else { return .result() }
-        WidgetLogger.log(volumeML: volumeML, source: .widget)
+        await WidgetLogger.log(volumeML: volumeML, source: .widget)
         return .result()
     }
 }
@@ -35,7 +35,7 @@ struct UndoWaterIntent: AppIntent {
     init() {}
 
     func perform() async throws -> some IntentResult {
-        WidgetLogger.undoLastToday()
+        await WidgetLogger.undoLastToday()
         return .result()
     }
 }

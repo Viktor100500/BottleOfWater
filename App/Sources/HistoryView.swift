@@ -170,7 +170,7 @@ struct HistoryView: View {
                 } label: {
                     Text(p.label)
                         .font(.system(size: 13, weight: .bold))
-                        .foregroundStyle(period == p ? Color(red: 0.016, green: 0.071, blue: 0.11) : Theme.textSecondary)
+                        .foregroundStyle(period == p ? Theme.ink : Theme.textSecondary)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 9)
                         .background {

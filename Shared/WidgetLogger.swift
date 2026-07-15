@@ -2,26 +2,35 @@ import Foundation
 import SwiftData
 import WidgetKit
 
-/// Minimal, self-contained water logging used by widget App Intents.
+/// Water logging used by widget App Intents (runs in the widget-extension process).
 ///
-/// Runs inside the widget-extension process, where HealthKit is unavailable,
-/// so it writes ONLY to the shared SwiftData store and never touches HealthKit.
-/// If it threw or crashed here, iOS would silently fall back to opening the app
-/// instead of running the intent — which is exactly the bug this avoids.
-/// The app reconciles these entries with Apple Health when it next activates.
+/// Order matters: the local save + widget reload happen FIRST so the widget
+/// updates instantly, then Apple Health is written directly from the extension.
+/// If the Health write fails for any reason, the entry keeps
+/// `pendingHealthSync = true` and the app re-syncs it in `flushPendingHealth()`
+/// — so a Health hiccup can never lose a log or break the button.
 enum WidgetLogger {
 
-    static func log(volumeML: Int, source: EntrySource) {
+    static func log(volumeML: Int, source: EntrySource) async {
         guard let container = try? BottleDatabase.makeContainer() else { return }
         let context = ModelContext(container)
         let entry = WaterEntry(volumeML: volumeML, source: source)
-        entry.pendingHealthSync = true   // app will push this to Health later
+        entry.pendingHealthSync = true
         context.insert(entry)
         try? context.save()
         WidgetCenter.shared.reloadAllTimelines()
+
+        // Мгновенная синхронизация с Apple Health прямо из виджета.
+        if let hkID = await HealthKitService.shared.save(volumeML: entry.volumeML,
+                                                         date: entry.timestamp,
+                                                         entryID: entry.id) {
+            entry.healthKitID = hkID
+            entry.pendingHealthSync = false
+            try? context.save()
+        }
     }
 
-    static func undoLastToday() {
+    static func undoLastToday() async {
         guard let container = try? BottleDatabase.makeContainer() else { return }
         let context = ModelContext(container)
         let start = Calendar.current.startOfDay(for: .now)
@@ -30,14 +39,22 @@ enum WidgetLogger {
             sortBy: [SortDescriptor(\.timestamp, order: .reverse)]
         )
         descriptor.fetchLimit = 1
-        guard let last = try? context.fetch(descriptor).first else { return }
+        guard let last = (try? context.fetch(descriptor))?.first else { return }
 
-        // If it already reached Health, queue its removal for the app to perform.
-        if let hkID = last.healthKitID {
-            SettingsStore.pendingHealthDeletes.append(hkID)
-        }
+        let entryID = last.id
+        let sampleID = last.healthKitID
         context.delete(last)
         try? context.save()
         WidgetCenter.shared.reloadAllTimelines()
+
+        // Сразу удаляем из Health; при неудаче — в очередь, приложение дочистит.
+        var ok = await HealthKitService.shared.delete(entryID: entryID)
+        if let sampleID {
+            ok = await HealthKitService.shared.delete(sampleID: sampleID) && ok
+        }
+        if !ok {
+            SettingsStore.pendingHealthDeletes.append(entryID)
+            if let sampleID { SettingsStore.pendingHealthDeletes.append(sampleID) }
+        }
     }
 }
