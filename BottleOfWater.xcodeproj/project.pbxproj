@@ -11,6 +11,7 @@
 		12112F7E863A336EA953C535 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174AD0CDCC00A40192BCCE8 /* RemindersView.swift */; };
 		202BF5DF37FAA7BB42F9CFA3 /* LiquidGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8BE80AD0F03B09267A2AEE /* LiquidGauge.swift */; };
 		241B7A0E4B1B69086B3BCF13 /* BottleShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66791AC10DC49C03DD88E928 /* BottleShared.swift */; };
+		2DA29DF8D5C0E073539C1237 /* WidgetLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DA64AA7D3A6D3F8C5F9CBE /* WidgetLogger.swift */; };
 		32044E5F1FE7B493759C7181 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE0D49D23CA8EE2514D37F1 /* Models.swift */; };
 		322CDEAC26FA7EC889F72A69 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AA11998EC5417EDCF21AD /* HealthKitService.swift */; };
 		37BF154BABE3B07C5606D0F3 /* HydrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D9DB916A9B5B463E4CBFCE /* HydrationService.swift */; };
@@ -27,6 +28,7 @@
 		AFD6C1E0CBC2AFE876E6F8DD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96361A49D79F79C578011FE0 /* Theme.swift */; };
 		C0547F02EE331EBC01FA5AD1 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA578E548177E878D7393CCB /* TodayView.swift */; };
 		C578C4723BFD6EAD5E22A0E1 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AA11998EC5417EDCF21AD /* HealthKitService.swift */; };
+		D791671C00BA650A93D2AE53 /* WidgetLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DA64AA7D3A6D3F8C5F9CBE /* WidgetLogger.swift */; };
 		DD2A6AD02A0CA16D879BCB3D /* HydrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D9DB916A9B5B463E4CBFCE /* HydrationService.swift */; };
 		DE8C61D266BCD5D4C7DE4A4A /* LogWaterIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE635E3C5867AEA52489F8D4 /* LogWaterIntent.swift */; };
 		FCF0250A540A67DF38543669 /* BottleOfWaterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAA5BF8AE1F0ECECD641B8F /* BottleOfWaterApp.swift */; };
@@ -66,6 +68,7 @@
 		3ECEC9BE65B63D7D20441CC6 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		5174AD0CDCC00A40192BCCE8 /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
 		66791AC10DC49C03DD88E928 /* BottleShared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottleShared.swift; sourceTree = "<group>"; };
+		72DA64AA7D3A6D3F8C5F9CBE /* WidgetLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetLogger.swift; sourceTree = "<group>"; };
 		774983F39E413D0BC5D96524 /* BottleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottleWidget.swift; sourceTree = "<group>"; };
 		7FBE7331633AC7EE35E1E0DD /* BottleOfWater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BottleOfWater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		838BFE3EFB7065125635838A /* BottleWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BottleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +146,7 @@
 				3ECEC9BE65B63D7D20441CC6 /* Localizable.xcstrings */,
 				DE635E3C5867AEA52489F8D4 /* LogWaterIntent.swift */,
 				2FE0D49D23CA8EE2514D37F1 /* Models.swift */,
+				72DA64AA7D3A6D3F8C5F9CBE /* WidgetLogger.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -282,6 +286,7 @@
 				DD2A6AD02A0CA16D879BCB3D /* HydrationService.swift in Sources */,
 				DE8C61D266BCD5D4C7DE4A4A /* LogWaterIntent.swift in Sources */,
 				32044E5F1FE7B493759C7181 /* Models.swift in Sources */,
+				2DA29DF8D5C0E073539C1237 /* WidgetLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +308,7 @@
 				8226AC71AC3C643782680FDF /* SettingsView.swift in Sources */,
 				AFD6C1E0CBC2AFE876E6F8DD /* Theme.swift in Sources */,
 				C0547F02EE331EBC01FA5AD1 /* TodayView.swift in Sources */,
+				D791671C00BA650A93D2AE53 /* WidgetLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,6 +15,7 @@ struct BottleOfWaterApp: App {
 /// Three screens in a horizontal pager: History ← Home → Today.
 struct RootView: View {
     @State private var page = 1
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         ZStack {
@@ -27,9 +28,27 @@ struct RootView: View {
             .tabViewStyle(.page(indexDisplayMode: .always))
             .indexViewStyle(.page(backgroundDisplayMode: .never))
         }
+        .onChange(of: page) {
+            UIApplication.dismissKeyboard()
+        }
+        .onChange(of: scenePhase) {
+            // Push widget-created entries to Apple Health when returning to the app.
+            if scenePhase == .active {
+                Task { await HydrationService.shared.flushPendingHealth() }
+            }
+        }
         .task {
             // Health permission is requested on the first log (see HealthKitService.save)
             ReminderPlanner.rescheduleAll()
+            await HydrationService.shared.flushPendingHealth()
         }
+    }
+}
+
+extension UIApplication {
+    /// Global keyboard dismissal (e.g. when swiping between pages).
+    static func dismissKeyboard() {
+        shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                          to: nil, from: nil, for: nil)
     }
 }

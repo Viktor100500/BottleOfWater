@@ -1,19 +1,46 @@
 import SwiftUI
+import CoreMotion
+
+/// Publishes the device roll angle so the liquid surface can stay level
+/// in the real world while the phone tilts.
+final class TiltMotion: ObservableObject {
+    static let shared = TiltMotion()
+    private let manager = CMMotionManager()
+    @Published private(set) var tilt: Double = 0   // radians, clamped
+
+    func start() {
+        guard manager.isDeviceMotionAvailable, !manager.isDeviceMotionActive else { return }
+        manager.deviceMotionUpdateInterval = 1.0 / 30.0
+        manager.startDeviceMotionUpdates(to: .main) { [weak self] motion, _ in
+            guard let g = motion?.gravity else { return }
+            // Roll of the device relative to upright portrait.
+            let angle = atan2(g.x, -g.y)
+            self?.tilt = max(-0.5, min(0.5, angle))
+        }
+    }
+
+    func stop() {
+        manager.stopDeviceMotionUpdates()
+    }
+}
 
 /// The "vessel with a wave" — hero of the home screen. Liquid level = goal progress.
 struct LiquidGauge: View {
     var totalML: Int
     var goalML: Int
+    var useOunces: Bool = false
+
+    @ObservedObject private var motion = TiltMotion.shared
 
     private var progress: Double { min(1, Double(totalML) / Double(max(1, goalML))) }
     private var goalReached: Bool { totalML >= goalML }
 
     var body: some View {
         ZStack {
-            // Liquid with a drifting wave
+            // Liquid with a drifting wave; surface stays level as the phone tilts
             TimelineView(.animation(minimumInterval: 1.0 / 30.0)) { timeline in
                 let phase = timeline.date.timeIntervalSinceReferenceDate
-                WaveShape(level: progress, phase: phase)
+                WaveShape(level: progress, phase: phase, tilt: motion.tilt)
                     .fill(goalReached ? Theme.goalGradient : Theme.liquidGradient)
             }
             .clipShape(RoundedRectangle(cornerRadius: 60, style: .continuous))
@@ -26,17 +53,26 @@ struct LiquidGauge: View {
 
             // Readings
             VStack(spacing: 4) {
-                Text(verbatim: "\(Int((Double(totalML) / Double(max(1, goalML)) * 100).rounded()))%")
+                Text(verbatim: "\(ProgressMath.percent(total: totalML, goal: goalML))%")
                     .font(.system(size: 52, weight: .heavy, design: .rounded))
                     .monospacedDigit()
                     .foregroundStyle(Theme.textPrimary)
                     .shadow(color: Theme.bg.opacity(0.5), radius: 10, y: 2)
                     .contentTransition(.numericText())
-                (goalReached
-                     ? Text(verbatim: "\(String(localized: "Goal reached 🎉")) · \(VolumeFormatter.string(ml: totalML))")
-                     : Text("\(VolumeFormatter.string(ml: totalML)) of \(VolumeFormatter.string(ml: goalML))"))
+                if goalReached {
+                    VStack(spacing: 1) {
+                        Text("Goal reached 🎉")
+                        Text(verbatim: VolumeFormatter.string(ml: totalML, ounces: useOunces))
+                            .monospacedDigit()
+                    }
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(Theme.textPrimary.opacity(0.85))
+                    .multilineTextAlignment(.center)
+                } else {
+                    Text("\(VolumeFormatter.string(ml: totalML, ounces: useOunces)) of \(VolumeFormatter.string(ml: goalML, ounces: useOunces))")
+                        .font(.footnote.weight(.semibold))
+                        .foregroundStyle(Theme.textPrimary.opacity(0.85))
+                }
             }
         }
         .frame(width: 200, height: 235)
@@ -50,13 +86,17 @@ struct LiquidGauge: View {
                 radius: 30, y: 18)
         .animation(.spring(duration: 0.7, bounce: 0.3), value: progress)
         .accessibilityLabel(Text(String(localized: "Progress: \(totalML) of \(goalML) millilitres")))
+        .onAppear { motion.start() }
+        .onDisappear { motion.stop() }
     }
 }
 
-/// Sine wave for the liquid surface.
+/// Sine wave for the liquid surface, tilted opposite to the device roll
+/// so the water stays level in the real world.
 struct WaveShape: Shape {
     var level: Double        // 0...1 — fill fraction
     var phase: Double        // time, drives the wave drift
+    var tilt: Double = 0     // device roll, radians
     var amplitude: CGFloat = 5
 
     var animatableData: Double {
@@ -70,12 +110,15 @@ struct WaveShape: Shape {
         let surfaceY = rect.height * (1 - CGFloat(level))
         let wavelength = rect.width / 1.4
         let amp = level >= 0.999 ? 0 : amplitude
+        let slope = CGFloat(-tan(tilt))
+        let midX = rect.width / 2
 
-        path.move(to: CGPoint(x: 0, y: surfaceY))
+        path.move(to: CGPoint(x: 0, y: surfaceY + slope * (0 - midX)))
         var x: CGFloat = 0
         while x <= rect.width {
             let relative = x / wavelength
-            let y = surfaceY + sin((relative + CGFloat(phase.truncatingRemainder(dividingBy: 1000)) * 0.9) * 2 * .pi) * amp
+            let wave = sin((relative + CGFloat(phase.truncatingRemainder(dividingBy: 1000)) * 0.9) * 2 * .pi) * amp
+            let y = surfaceY + wave + slope * (x - midX)
             path.addLine(to: CGPoint(x: x, y: y))
             x += 2
         }

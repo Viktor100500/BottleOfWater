@@ -176,6 +176,13 @@ enum SettingsStore {
         set { d.set((try? JSONEncoder().encode(newValue)) ?? Data(), forKey: "manualReminders") }
     }
 
+    /// HealthKit sample IDs queued for deletion from the widget (undo), where
+    /// HealthKit is unavailable. Flushed by the app when it activates.
+    static var pendingHealthDeletes: [UUID] {
+        get { (d.array(forKey: "pendingHealthDeletes") as? [String] ?? []).compactMap(UUID.init) }
+        set { d.set(newValue.map(\.uuidString), forKey: "pendingHealthDeletes") }
+    }
+
     /// Is this minute inside quiet hours? (handles the over-midnight case)
     static func isQuiet(minutes: Int) -> Bool {
         guard quietHoursEnabled else { return false }
@@ -183,6 +190,18 @@ enum SettingsStore {
         if s == e { return false }
         if s < e { return minutes >= s && minutes < e }
         return minutes >= s || minutes < e
+    }
+}
+
+// MARK: - Progress math
+
+enum ProgressMath {
+    /// Percent for display. Until the goal is truly reached the value is
+    /// capped at 99% — 1999/2000 must not read as "100%".
+    static func percent(total: Int, goal: Int) -> Int {
+        guard goal > 0, total > 0 else { return 0 }
+        let raw = Int((Double(total) / Double(goal) * 100).rounded())
+        return total >= goal ? raw : min(99, raw)
     }
 }
 

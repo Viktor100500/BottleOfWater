@@ -2,7 +2,33 @@ import WidgetKit
 import SwiftUI
 import AppIntents
 
-// MARK: - Data
+// MARK: - Fixed widget palette
+//
+// The widget always sits on its own dark brand surface, so its text uses FIXED
+// light colors and never semantic .primary/.secondary — otherwise a full-color
+// widget shown in the system's LIGHT appearance renders black text on the dark
+// surface and becomes unreadable (design-system fix #2).
+
+private enum W {
+    static let ink = Color(red: 0.016, green: 0.071, blue: 0.110)   // dark text on bright buttons
+    static let white = Color(red: 0.949, green: 0.965, blue: 1.0)   // #F2F6FF
+    static let dim = Color(red: 0.604, green: 0.655, blue: 0.741)   // fixed secondary
+    static let aqua = Color(red: 0.133, green: 0.827, blue: 0.933)
+    static let blue = Color(red: 0.145, green: 0.388, blue: 0.922)
+    static let indigo = Color(red: 0.388, green: 0.400, blue: 0.945)
+    static let danger = Color(red: 0.984, green: 0.443, blue: 0.522)
+
+    static let brandGradient = LinearGradient(colors: [aqua, indigo],
+                                              startPoint: .leading, endPoint: .trailing)
+    static let liquidGradient = LinearGradient(colors: [aqua, blue],
+                                               startPoint: .top, endPoint: .bottom)
+    static let surface = LinearGradient(
+        colors: [Color(red: 0.051, green: 0.102, blue: 0.188),
+                 Color(red: 0.075, green: 0.102, blue: 0.227)],
+        startPoint: .topLeading, endPoint: .bottomTrailing)
+}
+
+// MARK: - Timeline
 
 struct BottleEntry: TimelineEntry {
     var date: Date
@@ -13,7 +39,7 @@ struct BottleEntry: TimelineEntry {
     var loggingEnabled: Bool
 
     var progress: Double { min(1, Double(totalML) / Double(max(1, goalML))) }
-    var percent: Int { Int((Double(totalML) / Double(max(1, goalML)) * 100).rounded()) }
+    var percent: Int { ProgressMath.percent(total: totalML, goal: goalML) }
 
     static var demo: BottleEntry {
         BottleEntry(date: .now, totalML: 800, goalML: 2000,
@@ -39,10 +65,8 @@ struct BottleProvider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<BottleEntry>) -> Void) {
-        let entry = BottleEntry.current()
-        // Refresh at midnight — the new day's progress starts at zero.
         let midnight = Calendar.current.startOfDay(for: .now).addingTimeInterval(86400)
-        completion(Timeline(entries: [entry], policy: .after(midnight)))
+        completion(Timeline(entries: [.current()], policy: .after(midnight)))
     }
 }
 
@@ -62,20 +86,18 @@ struct BottleWidget: Widget {
 
 @main
 struct BottleWidgetBundle: WidgetBundle {
-    var body: some Widget {
-        BottleWidget()
-    }
+    var body: some Widget { BottleWidget() }
 }
 
-// MARK: - Views
+// MARK: - Root view
 
 struct BottleWidgetView: View {
     var entry: BottleEntry
     @Environment(\.widgetFamily) private var family
     @Environment(\.widgetRenderingMode) private var renderingMode
 
-    /// accented = tinted home screen, vibrant = lock screen (fix #2).
-    private var isAccented: Bool { renderingMode != .fullColor }
+    /// accented = tinted home screen, vibrant = lock screen.
+    private var accented: Bool { renderingMode != .fullColor }
 
     var body: some View {
         switch family {
@@ -90,64 +112,77 @@ struct BottleWidgetView: View {
 
     // MARK: Home Screen
 
+    private var brand: some View {
+        HStack(spacing: 5) {
+            Circle()
+                .fill(accented ? AnyShapeStyle(.white) : AnyShapeStyle(W.aqua))
+                .frame(width: 6, height: 6)
+            Text(verbatim: "Bottle of Water")
+                .font(.system(size: 12, weight: .heavy, design: .rounded))
+                .foregroundStyle(accented ? AnyShapeStyle(.white) : AnyShapeStyle(W.brandGradient))
+                .widgetAccentable()
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+        }
+    }
+
+    private var amount: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 4) {
+            Text(VolumeFormatter.formatted(entry.totalML))
+                .font(.system(size: 20, weight: .heavy, design: .rounded))
+                .monospacedDigit()
+                .foregroundStyle(accented ? AnyShapeStyle(.white) : AnyShapeStyle(W.white))
+                .widgetAccentable()
+                .contentTransition(.numericText(value: Double(entry.totalML)))
+                .invalidatableContent()
+            Text("of \(VolumeFormatter.formatted(entry.goalML)) ml")
+                .font(.system(size: 13, weight: .medium))
+                .foregroundStyle(accented ? AnyShapeStyle(.white.opacity(0.6)) : AnyShapeStyle(W.dim))
+        }
+    }
+
     private var medium: some View {
         HStack(spacing: 14) {
-            vessel(width: 92, height: 116, fontSize: 22)
-            VStack(alignment: .leading, spacing: 10) {
-                HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text(VolumeFormatter.formatted(entry.totalML))
-                        .font(.system(size: 20, weight: .heavy, design: .rounded))
-                        .monospacedDigit()
-                        .widgetAccentable()
-                        .contentTransition(.numericText(value: Double(entry.totalML)))
-                        .invalidatableContent()
-                    Text("of \(VolumeFormatter.formatted(entry.goalML)) ml")
-                        .font(.system(size: 13, weight: .medium))
-                        .foregroundStyle(.secondary)
-                }
+            vessel(width: 92, height: 118, fontSize: 22)
+            VStack(alignment: .leading, spacing: 8) {
+                brand
+                amount
                 if entry.loggingEnabled {
                     HStack(spacing: 8) {
                         logButton(entry.button1ML, prominent: true)
                         logButton(entry.button2ML, prominent: false)
-                        if entry.totalML > 0 {
-                            undoButton
-                        }
+                        if entry.totalML > 0 { undoButton }
                     }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .containerBackground(for: .widget) { widgetBackground }
+        .containerBackground(for: .widget) { W.surface }
     }
 
     private var small: some View {
-        VStack(spacing: 8) {
-            vessel(width: 72, height: 84, fontSize: 17)
+        VStack(spacing: 7) {
+            brand
+            vessel(width: 68, height: 74, fontSize: 17)
             if entry.loggingEnabled {
                 logButton(entry.button1ML, prominent: true)
-            } else {
-                Text(verbatim: "\(VolumeFormatter.formatted(entry.totalML)) / \(VolumeFormatter.formatted(entry.goalML))")
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(.secondary)
             }
         }
-        .containerBackground(for: .widget) { widgetBackground }
+        .containerBackground(for: .widget) { W.surface }
     }
 
-    /// Mini "vessel" with a liquid level.
+    // MARK: Pieces
+
+    /// Mini vessel with a liquid level.
     private func vessel(width: CGFloat, height: CGFloat, fontSize: CGFloat) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: width * 0.3, style: .continuous)
-                .fill(isAccented ? AnyShapeStyle(.white.opacity(0.10))
-                                 : AnyShapeStyle(Color(red: 0.58, green: 0.72, blue: 1).opacity(0.08)))
+                .fill(accented ? AnyShapeStyle(.white.opacity(0.10))
+                               : AnyShapeStyle(W.aqua.opacity(0.08)))
             GeometryReader { geo in
                 Rectangle()
-                    .fill(isAccented
-                          ? AnyShapeStyle(.white.opacity(0.34))
-                          : AnyShapeStyle(LinearGradient(
-                                colors: [Color(red: 0.133, green: 0.827, blue: 0.933),
-                                         Color(red: 0.145, green: 0.388, blue: 0.922)],
-                                startPoint: .top, endPoint: .bottom)))
+                    .fill(accented ? AnyShapeStyle(.white.opacity(0.34))
+                                   : AnyShapeStyle(W.liquidGradient))
                     .frame(height: geo.size.height * entry.progress)
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     .widgetAccentable()
@@ -156,20 +191,19 @@ struct BottleWidgetView: View {
             Text(verbatim: "\(entry.percent)%")
                 .font(.system(size: fontSize, weight: .heavy, design: .rounded))
                 .monospacedDigit()
-                .foregroundStyle(isAccented ? AnyShapeStyle(.white) : AnyShapeStyle(.primary))
-                .shadow(color: .black.opacity(isAccented ? 0 : 0.4), radius: 6)
+                .foregroundStyle(.white)
+                .shadow(color: .black.opacity(accented ? 0 : 0.4), radius: 6)
                 .contentTransition(.numericText(value: Double(entry.percent)))
                 .invalidatableContent()
         }
         .frame(width: width, height: height)
         .overlay(RoundedRectangle(cornerRadius: width * 0.3, style: .continuous)
-            .strokeBorder(.white.opacity(isAccented ? 0.28 : 0.14), lineWidth: 1.2))
+            .strokeBorder(.white.opacity(accented ? 0.28 : 0.14), lineWidth: 1.2))
     }
 
-    /// Quick-add button. In accented mode: solid fill, border and white text —
-    /// readable with any home screen color scheme (fix #2).
-    /// No .buttonStyle(.plain): the default style keeps the system press
-    /// highlight so taps are visibly acknowledged.
+    /// Quick-add button. Background + border live INSIDE the label and the style
+    /// is .plain — the configuration that lets the intent run instead of opening
+    /// the app. System supplies the press animation for widget buttons.
     private func logButton(_ ml: Int, prominent: Bool) -> some View {
         Button(intent: LogWaterIntent(volumeML: ml)) {
             Text(verbatim: "+\(ml) \(String(localized: "ml"))")
@@ -177,67 +211,43 @@ struct BottleWidgetView: View {
                 .monospacedDigit()
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
-                .foregroundStyle(buttonTextStyle(prominent: prominent))
+                .foregroundStyle(accented ? AnyShapeStyle(.white) : AnyShapeStyle(W.ink))
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 9)
-                .invalidatableContent()
+                .background(logButtonFill(prominent: prominent),
+                            in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .strokeBorder(.white.opacity(accented ? 0.35 : 0), lineWidth: 1))
         }
-        .buttonStyle(.borderless)
-        .background(buttonBackground(prominent: prominent),
-                    in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous)
-            .strokeBorder(.white.opacity(isAccented ? 0.35 : 0), lineWidth: 1))
+        .buttonStyle(.plain)
     }
 
-    /// Undo the last entry of the day.
+    private func logButtonFill(prominent: Bool) -> AnyShapeStyle {
+        if accented { return AnyShapeStyle(.white.opacity(0.16)) }
+        if prominent {
+            return AnyShapeStyle(LinearGradient(colors: [W.aqua, Color(red: 0.22, green: 0.74, blue: 0.97)],
+                                                startPoint: .topLeading, endPoint: .bottomTrailing))
+        }
+        return AnyShapeStyle(LinearGradient(colors: [Color(red: 0.507, green: 0.549, blue: 0.973), W.indigo],
+                                            startPoint: .topLeading, endPoint: .bottomTrailing))
+    }
+
     private var undoButton: some View {
         Button(intent: UndoWaterIntent()) {
             Image(systemName: "arrow.uturn.backward")
                 .font(.system(size: 13, weight: .heavy))
-                .foregroundStyle(isAccented ? AnyShapeStyle(.white)
-                                            : AnyShapeStyle(Color(red: 0.984, green: 0.443, blue: 0.522)))
-                .frame(width: 34, height: 34)
-                .invalidatableContent()
+                .foregroundStyle(accented ? AnyShapeStyle(.white) : AnyShapeStyle(W.danger))
+                .frame(width: 38, height: 38)
+                .background(accented ? AnyShapeStyle(.white.opacity(0.16))
+                                     : AnyShapeStyle(W.danger.opacity(0.16)),
+                            in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .strokeBorder(.white.opacity(accented ? 0.35 : 0.10), lineWidth: 1))
         }
-        .buttonStyle(.borderless)
-        .background(isAccented ? AnyShapeStyle(.white.opacity(0.16))
-                               : AnyShapeStyle(Color(red: 0.984, green: 0.443, blue: 0.522).opacity(0.16)),
-                    in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous)
-            .strokeBorder(.white.opacity(isAccented ? 0.35 : 0.10), lineWidth: 1))
+        .buttonStyle(.plain)
     }
 
-    private func buttonTextStyle(prominent: Bool) -> AnyShapeStyle {
-        if isAccented { return AnyShapeStyle(.white) }
-        return AnyShapeStyle(Color(red: 0.016, green: 0.071, blue: 0.11))
-    }
-
-    private func buttonBackground(prominent: Bool) -> AnyShapeStyle {
-        if isAccented { return AnyShapeStyle(.white.opacity(0.16)) }
-        if prominent {
-            return AnyShapeStyle(LinearGradient(
-                colors: [Color(red: 0.133, green: 0.827, blue: 0.933),
-                         Color(red: 0.22, green: 0.74, blue: 0.97)],
-                startPoint: .topLeading, endPoint: .bottomTrailing))
-        }
-        return AnyShapeStyle(LinearGradient(
-            colors: [Color(red: 0.507, green: 0.549, blue: 0.973),
-                     Color(red: 0.388, green: 0.400, blue: 0.945)],
-            startPoint: .topLeading, endPoint: .bottomTrailing))
-    }
-
-    @ViewBuilder
-    private var widgetBackground: some View {
-        if isAccented {
-            Color.clear
-        } else {
-            LinearGradient(colors: [Color(red: 0.051, green: 0.102, blue: 0.188),
-                                    Color(red: 0.075, green: 0.102, blue: 0.227)],
-                           startPoint: .topLeading, endPoint: .bottomTrailing)
-        }
-    }
-
-    // MARK: Lock Screen (fix #1)
+    // MARK: Lock Screen
 
     private var circular: some View {
         Gauge(value: entry.progress) {
@@ -268,7 +278,6 @@ struct BottleWidgetView: View {
                  ? String(localized: "Goal reached 🎉")
                  : String(localized: "\(VolumeFormatter.formatted(max(0, entry.goalML - entry.totalML))) ml to go"))
                 .font(.system(size: 11))
-                .foregroundStyle(.secondary)
         }
         .containerBackground(for: .widget) { AccessoryWidgetBackground() }
     }

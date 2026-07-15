@@ -45,6 +45,7 @@ struct HistoryView: View {
     @State private var period: HistoryPeriod = .week
     @State private var anchor: Date = .now
     @AppStorage("goalML", store: BottleShared.defaults) private var goalML = 2000
+    @AppStorage("useOunces", store: BottleShared.defaults) private var useOunces = false
 
     private var calendar: Calendar { Calendar.current }
 
@@ -262,7 +263,7 @@ struct HistoryView: View {
 
             HStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(VolumeFormatter.string(ml: totalInRange))
+                    Text(VolumeFormatter.string(ml: totalInRange, ounces: useOunces))
                         .font(.headline.weight(.heavy)).monospacedDigit()
                         .foregroundStyle(Theme.textPrimary)
                     Text("total for period")
@@ -291,8 +292,10 @@ struct HistoryView: View {
                       unit: String(localized: "of \(max(daysInPeriod, loggedDays.count))"),
                       label: String(localized: "Days logged"),
                       sub: String(localized: "in this period"), color: Theme.aqua)
-            trendCard(value: VolumeFormatter.formatted(averageDaily),
-                      unit: String(localized: "ml"),
+            trendCard(value: useOunces
+                        ? String(format: "%.0f", Double(averageDaily) / VolumeFormatter.mlPerOz)
+                        : VolumeFormatter.formatted(averageDaily),
+                      unit: useOunces ? "oz" : String(localized: "ml"),
                       label: String(localized: "Daily avg"),
                       sub: String(localized: "on logged days"), color: Theme.success)
         }

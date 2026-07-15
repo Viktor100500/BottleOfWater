@@ -5,6 +5,7 @@ import SwiftData
 struct TodayView: View {
     @Query private var todayEntries: [WaterEntry]
     @AppStorage("goalML", store: BottleShared.defaults) private var goalML = 2000
+    @AppStorage("useOunces", store: BottleShared.defaults) private var useOunces = false
 
     init() {
         let start = Calendar.current.startOfDay(for: .now)
@@ -98,7 +99,7 @@ struct TodayView: View {
 
             Spacer()
 
-            Text(VolumeFormatter.string(ml: entry.volumeML))
+            Text(VolumeFormatter.string(ml: entry.volumeML, ounces: useOunces))
                 .font(.body.weight(.heavy))
                 .monospacedDigit()
                 .foregroundStyle(Theme.textPrimary)
@@ -134,7 +135,7 @@ struct TodayView: View {
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Theme.textSecondary)
             Spacer()
-            Text(verbatim: "\(VolumeFormatter.string(ml: total)) · \(Int((Double(total) / Double(max(1, goalML)) * 100).rounded()))%")
+            Text(verbatim: "\(VolumeFormatter.string(ml: total, ounces: useOunces)) · \(ProgressMath.percent(total: total, goal: goalML))%")
                 .font(.title3.weight(.heavy))
                 .monospacedDigit()
                 .foregroundStyle(Theme.textPrimary)

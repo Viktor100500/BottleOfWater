@@ -19,6 +19,9 @@ final class WaterEntry {
     var volumeML: Int = 0
     var sourceRaw: String = EntrySource.app.rawValue
     var healthKitID: UUID?
+    /// Set when an entry was created outside the app (widget), where HealthKit
+    /// is unavailable. The app flushes these to Apple Health when it activates.
+    var pendingHealthSync: Bool = false
 
     var source: EntrySource { EntrySource(rawValue: sourceRaw) ?? .app }
 

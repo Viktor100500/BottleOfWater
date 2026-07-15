@@ -2,7 +2,9 @@ import Foundation
 import SwiftData
 import WidgetKit
 
-/// Центральная точка записи/удаления воды. Используется приложением и интентом виджета.
+/// App-side water logging. Owns the main SwiftData container the UI reads from,
+/// and is the only place that talks to Apple Health (the app has the entitlement,
+/// widget extensions do not).
 @MainActor
 final class HydrationService {
     static let shared = HydrationService()
@@ -18,11 +20,8 @@ final class HydrationService {
         }
     }
 
-    // MARK: Запись
+    // MARK: Logging (app)
 
-    /// Быстрый локальный лог: сохранение + мгновенная перезагрузка виджетов.
-    /// Синхронизация с Apple Health — отдельным шагом (`syncToHealth`), чтобы
-    /// не задерживать обновление UI и виджета.
     @discardableResult
     func log(volumeML: Int, source: EntrySource, date: Date = .now) -> WaterEntry {
         let entry = WaterEntry(timestamp: date, volumeML: volumeML, source: source)
@@ -35,13 +34,8 @@ final class HydrationService {
     func syncToHealth(_ entry: WaterEntry) async {
         entry.healthKitID = await HealthKitService.shared.save(volumeML: entry.volumeML,
                                                                date: entry.timestamp)
+        entry.pendingHealthSync = false
         try? context.save()
-    }
-
-    /// Полный цикл: локально + Health.
-    func logAndSync(volumeML: Int, source: EntrySource) async {
-        let entry = log(volumeML: volumeML, source: source)
-        await syncToHealth(entry)
     }
 
     func delete(_ entry: WaterEntry) async {
@@ -52,13 +46,38 @@ final class HydrationService {
         if let hkID { await HealthKitService.shared.delete(sampleID: hkID) }
     }
 
-    /// Отмена последней записи за сегодня.
+    /// Undo the last of today's entries.
     func undoLastToday() async {
         guard let last = lastEntryToday() else { return }
         await delete(last)
     }
 
-    // MARK: Чтение
+    // MARK: Reconciliation with Apple Health
+
+    /// Push widget-created entries to Health and process widget-queued deletions.
+    /// Called when the app becomes active. Also nudges the main context so
+    /// `@Query`-backed views pick up rows the widget wrote in another process.
+    func flushPendingHealth() async {
+        // 1. Deletions queued by the widget's undo.
+        let deletes = SettingsStore.pendingHealthDeletes
+        if !deletes.isEmpty {
+            for id in deletes { await HealthKitService.shared.delete(sampleID: id) }
+            SettingsStore.pendingHealthDeletes = []
+        }
+
+        // 2. Entries the widget saved without Health access.
+        let descriptor = FetchDescriptor<WaterEntry>(
+            predicate: #Predicate { $0.pendingHealthSync == true })
+        let pending = (try? context.fetch(descriptor)) ?? []
+        for entry in pending {
+            await syncToHealth(entry)
+        }
+
+        try? context.save()
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+
+    // MARK: Reads
 
     func lastEntryToday() -> WaterEntry? {
         let start = Calendar.current.startOfDay(for: .now)
@@ -75,17 +94,9 @@ final class HydrationService {
         let descriptor = FetchDescriptor<WaterEntry>(predicate: #Predicate { $0.timestamp >= start })
         return ((try? context.fetch(descriptor)) ?? []).reduce(0) { $0 + $1.volumeML }
     }
-
-    func entries(from: Date, to: Date) -> [WaterEntry] {
-        let descriptor = FetchDescriptor<WaterEntry>(
-            predicate: #Predicate { $0.timestamp >= from && $0.timestamp < to },
-            sortBy: [SortDescriptor(\.timestamp)]
-        )
-        return (try? context.fetch(descriptor)) ?? []
-    }
 }
 
-/// Чтение данных для виджета (отдельный процесс — свой контейнер, только чтение).
+/// Read-only snapshot for the widget process.
 enum WidgetDataReader {
     struct Data {
         var totalML: Int

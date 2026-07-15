@@ -30,24 +30,45 @@ struct HomeView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            header
-            Spacer(minLength: 8)
-            LiquidGauge(totalML: totalToday, goalML: max(500, goalML))
-            undoButton
-                .padding(.top, 10)
-            Spacer(minLength: 8)
-            presetGrid
-            customRow
-                .padding(.top, 12)
-            tip
-                .padding(.top, 14)
-            Spacer(minLength: 30)
+        // minHeight = высота экрана: без клавиатуры раскладка со Spacer'ами как раньше;
+        // с клавиатурой область сжимается и контент прокручивается к полю ввода.
+        GeometryReader { geo in
+            ScrollViewReader { proxy in
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        header
+                        Spacer(minLength: 8)
+                        LiquidGauge(totalML: totalToday, goalML: max(500, goalML), useOunces: useOunces)
+                        undoButton
+                            .padding(.top, 10)
+                        Spacer(minLength: 8)
+                        presetGrid
+                        customRow
+                            .id("customRow")
+                            .padding(.top, 12)
+                        tip
+                            .padding(.top, 14)
+                        Spacer(minLength: 30)
+                    }
+                    .padding(.horizontal, 20)
+                    .frame(minHeight: geo.size.height)
+                }
+                .scrollDismissesKeyboard(.interactively)
+                .onChange(of: customFocused) {
+                    guard customFocused else { return }
+                    // Ждём анимацию клавиатуры и докручиваем поле + кнопку выше неё
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                        withAnimation(.easeOut(duration: 0.25)) {
+                            proxy.scrollTo("customRow", anchor: .bottom)
+                        }
+                    }
+                }
+            }
         }
-        .padding(.horizontal, 20)
+        .contentShape(Rectangle())
+        .onTapGesture { customFocused = false }
         .sheet(isPresented: $showSettings) { SettingsView() }
         .sheet(isPresented: $showReminders) { RemindersView() }
-        .onTapGesture { customFocused = false }
     }
 
     private var header: some View {
