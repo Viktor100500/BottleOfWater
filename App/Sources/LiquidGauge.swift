@@ -30,7 +30,11 @@ struct LiquidGauge: View {
     var goalML: Int
     var useOunces: Bool = false
 
-    @ObservedObject private var motion = TiltMotion.shared
+    // Без @ObservedObject: наклон читается внутри кадрового замыкания TimelineView,
+    // которое и так перерисовывается каждый кадр. Подписка на 60 Гц публикаций
+    // заставляла пересобирать ВЕСЬ gauge (текст, форматтеры) на каждый тик
+    // акселерометра — лишняя нагрузка поверх покадровой отрисовки волны.
+    private let motion = TiltMotion.shared
 
     private var progress: Double { min(1, Double(totalML) / Double(max(1, goalML))) }
     private var goalReached: Bool { totalML >= goalML }

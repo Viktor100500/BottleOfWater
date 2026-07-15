@@ -220,27 +220,13 @@ struct BottleWidgetView: View {
 
     private func logButtonFill(prominent: Bool) -> AnyShapeStyle {
         if accented { return AnyShapeStyle(.white.opacity(0.16)) }
-        if prominent {
-            return AnyShapeStyle(
-                LinearGradient(
-                    colors: [Theme.Widget.aqua, Color(red: 0.22, green: 0.74, blue: 0.97)],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
-        }
-        return AnyShapeStyle(
-            LinearGradient(
-                colors: [Color(red: 0.507, green: 0.549, blue: 0.973), Theme.Widget.indigo],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        )
+        return AnyShapeStyle(prominent ? Theme.Widget.buttonPrimaryGradient
+                                       : Theme.Widget.buttonSecondaryGradient)
     }
 
     private var undoButton: some View {
         Button(intent: UndoWaterIntent()) {
-            Image(systemName: "arroTheme.Widget.uturn.backward")
+            Image(systemName: "arrow.uturn.backward")
                 .font(.system(size: 13, weight: .heavy))
                 .foregroundStyle(accented ? AnyShapeStyle(.white) : AnyShapeStyle(Theme.Widget.danger))
                 .frame(width: 38, height: 38)

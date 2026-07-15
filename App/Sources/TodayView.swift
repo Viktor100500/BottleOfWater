@@ -118,12 +118,14 @@ struct TodayView: View {
 
     private func sourceTag(_ source: EntrySource) -> some View {
         let isWidget = source == .widget
-        let color = isWidget ? Theme.aqua : Color(red: 0.655, green: 0.545, blue: 0.980)
+        let color = isWidget ? Theme.aqua : Theme.violet
         return Text(source.label.uppercased())
             .font(.system(size: 9.5, weight: .bold))
             .kerning(0.5)
             .foregroundStyle(color)
-            .padding(.horizontal, 8)
+            .lineLimit(1)
+            .fixedSize()
+            .padding(.horizontal, 9)
             .padding(.vertical, 3)
             .background(color.opacity(0.14), in: Capsule())
             .overlay(Capsule().strokeBorder(color.opacity(0.3), lineWidth: 1))

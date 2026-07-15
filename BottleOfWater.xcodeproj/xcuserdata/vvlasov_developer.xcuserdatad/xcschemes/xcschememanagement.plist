@@ -7,12 +7,25 @@
 		<key>BottleOfWater.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<key>BottleWidget.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>40FD2EAF904FDB3FBD458E18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6E3679249FD3AE0550604FEB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

@@ -20,17 +20,17 @@
 		523DAD22E25E5D368BF40688 /* LogWaterIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE635E3C5867AEA52489F8D4 /* LogWaterIntent.swift */; };
 		661F39CF5C2151077BE09CCC /* BottleShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66791AC10DC49C03DD88E928 /* BottleShared.swift */; };
 		670AD525EA2757B6E441808D /* BottleWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 838BFE3EFB7065125635838A /* BottleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		69BBDA82B551E4C40CF40794 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F234DE784DDA955DCAC20B /* Theme.swift */; };
 		7024E1C60E8DDD2E7D34BF6E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3ECEC9BE65B63D7D20441CC6 /* Localizable.xcstrings */; };
 		7CB6E84DCF8C2635BB879968 /* BottleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774983F39E413D0BC5D96524 /* BottleWidget.swift */; };
 		8226AC71AC3C643782680FDF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76D9F8D10C5787E61F3E555 /* SettingsView.swift */; };
-		90BCE47C3007FB6300BF1433 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96361A49D79F79C578011FE0 /* Theme.swift */; };
 		9AD125B3BF0CF31B93673DE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EA88B6C765B1228270DAE2 /* Assets.xcassets */; };
 		AD2FB499946C508BAE739363 /* ReminderPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E90266B5845C8DF4B38BEF /* ReminderPlanner.swift */; };
-		AFD6C1E0CBC2AFE876E6F8DD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96361A49D79F79C578011FE0 /* Theme.swift */; };
 		C0547F02EE331EBC01FA5AD1 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA578E548177E878D7393CCB /* TodayView.swift */; };
 		C578C4723BFD6EAD5E22A0E1 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AA11998EC5417EDCF21AD /* HealthKitService.swift */; };
 		D791671C00BA650A93D2AE53 /* WidgetLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DA64AA7D3A6D3F8C5F9CBE /* WidgetLogger.swift */; };
 		DD2A6AD02A0CA16D879BCB3D /* HydrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D9DB916A9B5B463E4CBFCE /* HydrationService.swift */; };
+		DE20C8A2736B74A573F585AE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F234DE784DDA955DCAC20B /* Theme.swift */; };
 		DE8C61D266BCD5D4C7DE4A4A /* LogWaterIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE635E3C5867AEA52489F8D4 /* LogWaterIntent.swift */; };
 		FCF0250A540A67DF38543669 /* BottleOfWaterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAA5BF8AE1F0ECECD641B8F /* BottleOfWaterApp.swift */; };
 		FEED92F81BC5566F8DA386B2 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E7758F52F35CACBE1119DE /* HistoryView.swift */; };
@@ -62,6 +62,7 @@
 
 /* Begin PBXFileReference section */
 		000CAFBD3D5FC1E68BA9284F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		00F234DE784DDA955DCAC20B /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		1E8BE80AD0F03B09267A2AEE /* LiquidGauge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGauge.swift; sourceTree = "<group>"; };
 		28E90266B5845C8DF4B38BEF /* ReminderPlanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderPlanner.swift; sourceTree = "<group>"; };
 		2A5AA11998EC5417EDCF21AD /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
@@ -74,7 +75,6 @@
 		7FBE7331633AC7EE35E1E0DD /* BottleOfWater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BottleOfWater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		838BFE3EFB7065125635838A /* BottleWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BottleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		94D9DB916A9B5B463E4CBFCE /* HydrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrationService.swift; sourceTree = "<group>"; };
-		96361A49D79F79C578011FE0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		9FAA5BF8AE1F0ECECD641B8F /* BottleOfWaterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottleOfWaterApp.swift; sourceTree = "<group>"; };
 		B3854AB598B7E7994B308198 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		BA578E548177E878D7393CCB /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
@@ -121,14 +121,6 @@
 			path = Widget;
 			sourceTree = "<group>";
 		};
-		90BCE47B3007FB5200BF1433 /* DesignSystem */ = {
-			isa = PBXGroup;
-			children = (
-				96361A49D79F79C578011FE0 /* Theme.swift */,
-			);
-			path = DesignSystem;
-			sourceTree = "<group>";
-		};
 		AD2FAE7B54A49FCFB675B953 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +128,14 @@
 				B3854AB598B7E7994B308198 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		D9E9F0DCF934EDB5534231D9 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				00F234DE784DDA955DCAC20B /* Theme.swift */,
+			);
+			path = DesignSystem;
 			sourceTree = "<group>";
 		};
 		DA24C3ED4585FD254FF8B256 /* Sources */ = {
@@ -149,7 +149,6 @@
 		E81285B6F56E5FEB1A79C8D9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				90BCE47B3007FB5200BF1433 /* DesignSystem */,
 				66791AC10DC49C03DD88E928 /* BottleShared.swift */,
 				2A5AA11998EC5417EDCF21AD /* HealthKitService.swift */,
 				94D9DB916A9B5B463E4CBFCE /* HydrationService.swift */,
@@ -157,6 +156,7 @@
 				DE635E3C5867AEA52489F8D4 /* LogWaterIntent.swift */,
 				2FE0D49D23CA8EE2514D37F1 /* Models.swift */,
 				72DA64AA7D3A6D3F8C5F9CBE /* WidgetLogger.swift */,
+				D9E9F0DCF934EDB5534231D9 /* DesignSystem */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -290,12 +290,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				241B7A0E4B1B69086B3BCF13 /* BottleShared.swift in Sources */,
-				90BCE47C3007FB6300BF1433 /* Theme.swift in Sources */,
 				7CB6E84DCF8C2635BB879968 /* BottleWidget.swift in Sources */,
 				322CDEAC26FA7EC889F72A69 /* HealthKitService.swift in Sources */,
 				DD2A6AD02A0CA16D879BCB3D /* HydrationService.swift in Sources */,
 				DE8C61D266BCD5D4C7DE4A4A /* LogWaterIntent.swift in Sources */,
 				32044E5F1FE7B493759C7181 /* Models.swift in Sources */,
+				69BBDA82B551E4C40CF40794 /* Theme.swift in Sources */,
 				2DA29DF8D5C0E073539C1237 /* WidgetLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,7 +316,7 @@
 				AD2FB499946C508BAE739363 /* ReminderPlanner.swift in Sources */,
 				12112F7E863A336EA953C535 /* RemindersView.swift in Sources */,
 				8226AC71AC3C643782680FDF /* SettingsView.swift in Sources */,
-				AFD6C1E0CBC2AFE876E6F8DD /* Theme.swift in Sources */,
+				DE20C8A2736B74A573F585AE /* Theme.swift in Sources */,
 				C0547F02EE331EBC01FA5AD1 /* TodayView.swift in Sources */,
 				D791671C00BA650A93D2AE53 /* WidgetLogger.swift in Sources */,
 			);
