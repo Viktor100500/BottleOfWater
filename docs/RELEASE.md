@@ -6,9 +6,7 @@
 
 ## 1. Блокеры, которые нужно закрыть до отправки
 
-- [ ] **Контакт поддержки.** Выбрать email и подставить его:
-  - `Shared/Core/AppGroup.swift` → `AppInfo.supportEmail`;
-  - `site/index.html` и `site/privacy/index.html` → заменить все `SUPPORT_EMAIL`.
+- [x] **Контакт поддержки:** `yar.thedeveloper@proton.me` — единый ящик разработчика. Приложение и сайт открывают письмо с темой `[Bottle of Water] Feedback` (политика — `[Bottle of Water] Privacy`) и версией приложения, iOS и модели устройства в теле. В Proton удобно завести фильтр «Тема содержит [Bottle of Water] → папка Bottle of Water».
 - [ ] **GitHub Pages.** Settings → Pages → Source: **GitHub Actions**. Workflow `.github/workflows/pages.yml` публикует `site/` при пуше в `main`.
   Для приватного репозитория Pages требует GitHub Pro; иначе сделать репозиторий публичным или разместить `site/` на любом статическом хостинге и поменять `AppInfo.privacyPolicyURL` / `supportURL`.
 - [ ] Проверить, что https://viktor100500.github.io/BottleOfWater/privacy/ открывается.

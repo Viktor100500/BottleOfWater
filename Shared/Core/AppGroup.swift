@@ -10,14 +10,40 @@ enum AppGroup {
 
 /// Static, release-relevant facts about the app.
 enum AppInfo {
-    /// Support contact. Set before release; the Settings row is hidden while nil.
-    static let supportEmail: String? = nil
+    /// One developer mailbox for all apps; the subject tells which app a message is about.
+    static let supportEmail = "yar.thedeveloper@proton.me"
+    static let supportSubject = "[Bottle of Water] Feedback"
     /// Numeric App Store ID, known after the app is created in App Store Connect.
     /// The "Rate" row is hidden while nil.
     static let appStoreID: String? = nil
 
     static let privacyPolicyURL = URL(string: "https://viktor100500.github.io/BottleOfWater/privacy/")!
     static let supportURL = URL(string: "https://viktor100500.github.io/BottleOfWater/")!
+
+    /// Pre-filled feedback email. The user sees and can edit everything before sending,
+    /// so nothing is collected behind their back.
+    static var supportMailURL: URL? {
+        var components = URLComponents()
+        components.scheme = "mailto"
+        components.path = supportEmail
+        let os = ProcessInfo.processInfo.operatingSystemVersion
+        let body = "\n\n—\nApp: Bottle of Water \(version)\n"
+            + "iOS: \(os.majorVersion).\(os.minorVersion).\(os.patchVersion)\n"
+            + "Device: \(deviceModel)"
+        components.queryItems = [URLQueryItem(name: "subject", value: supportSubject),
+                                 URLQueryItem(name: "body", value: body)]
+        return components.url
+    }
+
+    /// Hardware identifier such as "iPhone17,1" (the simulator reports its host model).
+    static var deviceModel: String {
+        if let simulated = ProcessInfo.processInfo.environment["SIMULATOR_MODEL_IDENTIFIER"] { return simulated }
+        var info = utsname()
+        uname(&info)
+        return withUnsafeBytes(of: &info.machine) { buffer in
+            String(decoding: buffer.prefix { $0 != 0 }, as: UTF8.self)
+        }
+    }
 
     static var version: String {
         let info = Bundle.main.infoDictionary

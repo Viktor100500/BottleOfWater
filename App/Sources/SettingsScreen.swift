@@ -67,8 +67,7 @@ struct SettingsScreen: View {
                     Link(destination: AppInfo.supportURL) {
                         Label("Help & FAQ", systemImage: "questionmark.circle")
                     }
-                    if let email = AppInfo.supportEmail,
-                       let url = URL(string: "mailto:\(email)?subject=Bottle%20of%20Water%20\(AppInfo.version)") {
+                    if let url = AppInfo.supportMailURL {
                         Link(destination: url) {
                             Label("Contact support", systemImage: "envelope")
                         }

@@ -152,3 +152,17 @@ struct HistoryMathTests {
         #expect(HistoryMath.averageOnLoggedDays(data, interval: interval) == 1833)
     }
 }
+
+@Suite("Support")
+struct SupportTests {
+    @Test func feedbackMailIsAddressedAndTagged() throws {
+        let url = try #require(AppInfo.supportMailURL)
+        let components = try #require(URLComponents(url: url, resolvingAgainstBaseURL: false))
+        #expect(components.scheme == "mailto")
+        #expect(components.path == "yar.thedeveloper@proton.me")
+        let items = Dictionary(uniqueKeysWithValues: (components.queryItems ?? []).map { ($0.name, $0.value ?? "") })
+        #expect(items["subject"] == "[Bottle of Water] Feedback")
+        #expect(items["body"]?.contains("App: Bottle of Water") == true)
+        #expect(items["body"]?.contains("iOS: ") == true)
+    }
+}
