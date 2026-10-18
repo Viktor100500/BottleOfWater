@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		01758AF5FDCD6BBC2B5B6F79 /* CoreLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8AB4B387DE9D71A37FE15F /* CoreLogicTests.swift */; };
 		095E0B6152485C500A2C4624 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3ECEC9BE65B63D7D20441CC6 /* Localizable.xcstrings */; };
+		09C654EDB0B9876ED84B5A40 /* DemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531151DA62B1F0FABE9F2305 /* DemoData.swift */; };
 		12498865935ADA2B2FDCA7AB /* WaterStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBDAE3D2408372DEE9E0171 /* WaterStore.swift */; };
 		153E74CEC744CBFE14416844 /* WaterEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8D68E449AB19CEA630040 /* WaterEntry.swift */; };
 		1A26EBF1DBD4663A7EAB8C77 /* HistoryMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8349434A635DA6293B15B /* HistoryMath.swift */; };
@@ -93,6 +94,7 @@
 		1E8BE80AD0F03B09267A2AEE /* LiquidGauge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGauge.swift; sourceTree = "<group>"; };
 		38F4B59243FBA7A76CBB863A /* HistoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreen.swift; sourceTree = "<group>"; };
 		3ECEC9BE65B63D7D20441CC6 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		531151DA62B1F0FABE9F2305 /* DemoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoData.swift; sourceTree = "<group>"; };
 		53A636B38A57FDBB1435530A /* PresetsEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsEditor.swift; sourceTree = "<group>"; };
 		585A78C4EF266D16CB5BF83A /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
 		5C66BB2022EFD41BB980AA88 /* ReminderPlanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderPlanner.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			children = (
 				16A0341E53C385AC8319DFD2 /* AppShortcuts.swift */,
 				9FAA5BF8AE1F0ECECD641B8F /* BottleOfWaterApp.swift */,
+				531151DA62B1F0FABE9F2305 /* DemoData.swift */,
 				10C273CAD00D5AAE36517129 /* EntryEditorSheet.swift */,
 				38F4B59243FBA7A76CBB863A /* HistoryScreen.swift */,
 				1E8BE80AD0F03B09267A2AEE /* LiquidGauge.swift */,
@@ -443,6 +446,7 @@
 				324BB24D8964635F55699515 /* AppGroup.swift in Sources */,
 				2694B10D30F59D981CCB5082 /* AppShortcuts.swift in Sources */,
 				FCF0250A540A67DF38543669 /* BottleOfWaterApp.swift in Sources */,
+				09C654EDB0B9876ED84B5A40 /* DemoData.swift in Sources */,
 				3CD9279265807FB9D8F4A489 /* EntryEditorSheet.swift in Sources */,
 				DD6FD950A8838C6E455C3561 /* HealthSync.swift in Sources */,
 				ED8C47DBACAC7170D92ACB29 /* HistoryMath.swift in Sources */,

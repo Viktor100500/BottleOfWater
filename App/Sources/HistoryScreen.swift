@@ -5,7 +5,7 @@ struct HistoryScreen: View {
     @Environment(WaterStore.self) private var store
     @Environment(Preferences.self) private var preferences
 
-    @State private var range: HistoryRange = .week
+    @State private var range: HistoryRange = DemoData.initialRange
     @State private var anchor = Date.now
 
     private var calendar: Calendar { .current }
@@ -106,6 +106,9 @@ struct HistoryScreen: View {
                         Text("Goal")
                             .font(.caption2.weight(.semibold))
                             .foregroundStyle(Theme.success)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 1)
+                            .background(Theme.bg.opacity(0.85), in: Capsule())
                     }
             }
             .chartXScale(domain: interval.start...interval.end)

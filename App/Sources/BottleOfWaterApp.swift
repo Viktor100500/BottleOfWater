@@ -6,7 +6,14 @@ import UserNotifications
 struct BottleOfWaterApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @Environment(\.scenePhase) private var scenePhase
-    @State private var preferences = Preferences()
+    @State private var preferences: Preferences
+
+    init() {
+        #if DEBUG
+        DemoData.seedIfRequested()
+        #endif
+        _preferences = State(initialValue: Preferences())
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -83,7 +90,7 @@ enum AppTab: Hashable {
 
 struct RootView: View {
     @Environment(Preferences.self) private var preferences
-    @State private var tab: AppTab = .today
+    @State private var tab: AppTab = DemoData.initialTab
 
     var body: some View {
         if preferences.onboardingCompleted {

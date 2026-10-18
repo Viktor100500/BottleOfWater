@@ -79,6 +79,9 @@ struct TodayScreen: View {
                 }
             }
         }
+        .onAppear {
+            if DemoData.screen == "add" { sheet = .add(day: nil) }
+        }
         .sensoryFeedback(.impact(weight: .medium), trigger: logCount)
         .sensoryFeedback(.success, trigger: goalCelebration)
         .onChange(of: total) { old, new in

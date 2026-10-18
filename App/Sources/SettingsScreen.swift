@@ -3,11 +3,12 @@ import SwiftUI
 struct SettingsScreen: View {
     @Environment(Preferences.self) private var preferences
     @Environment(\.openURL) private var openURL
+    @State private var path: [String] = DemoData.screen == "reminders" ? ["reminders"] : []
 
     var body: some View {
         @Bindable var preferences = preferences
 
-        NavigationStack {
+        NavigationStack(path: $path) {
             Form {
                 Section {
                     GoalStepper(goalML: $preferences.goalML, unit: preferences.unit)
@@ -95,6 +96,7 @@ struct SettingsScreen: View {
             }
             .themedList()
             .navigationTitle("Settings")
+            .navigationDestination(for: String.self) { _ in RemindersScreen() }
         }
     }
 

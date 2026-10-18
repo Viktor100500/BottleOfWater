@@ -150,6 +150,7 @@ struct EntryEditorSheet: View {
             } else {
                 time = .now
             }
+            digits = DemoData.prefilledAmount ?? ""
         }
     }
 
