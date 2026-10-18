@@ -15,6 +15,11 @@ enum ReminderScheduler {
         return (try? await center.requestAuthorization(options: [.alert, .sound, .badge])) ?? false
     }
 
+    /// True only after the user explicitly said no (not while the prompt is pending).
+    static func isDenied() async -> Bool {
+        await UNUserNotificationCenter.current().notificationSettings().authorizationStatus == .denied
+    }
+
     static func isAuthorized() async -> Bool {
         let status = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
         return status == .authorized || status == .provisional

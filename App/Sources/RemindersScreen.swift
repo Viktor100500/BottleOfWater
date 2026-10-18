@@ -6,7 +6,7 @@ struct RemindersScreen: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
 
-    @State private var authorized = true
+    @State private var denied = false
     @State private var editingTime: ReminderTime?
     @State private var nextReminder: Date?
 
@@ -18,7 +18,7 @@ struct RemindersScreen: View {
             Section {
                 Toggle("Remind me to drink", isOn: enabledBinding)
             } footer: {
-                if !authorized && settings.isEnabled {
+                if denied && settings.isEnabled {
                     VStack(alignment: .leading, spacing: 8) {
                         Label("Notifications are turned off for Bottle of Water.", systemImage: "exclamationmark.triangle.fill")
                             .foregroundStyle(Theme.warn)
@@ -89,12 +89,12 @@ struct RemindersScreen: View {
             }
         }
         .task(id: settings) {
-            authorized = await ReminderScheduler.isAuthorized()
+            denied = await ReminderScheduler.isDenied()
             nextReminder = ReminderScheduler.nextReminder(for: settings)
         }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active {
-                Task { authorized = await ReminderScheduler.isAuthorized() }
+                Task { denied = await ReminderScheduler.isDenied() }
             }
         }
     }
@@ -106,7 +106,8 @@ struct RemindersScreen: View {
                 withAnimation { preferences.reminders.isEnabled = enabled }
                 guard enabled else { return }
                 Task {
-                    authorized = await ReminderScheduler.requestAuthorization()
+                    _ = await ReminderScheduler.requestAuthorization()
+                    denied = await ReminderScheduler.isDenied()
                     await ReminderScheduler.reschedule()
                 }
             })
