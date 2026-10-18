@@ -67,11 +67,7 @@ struct SettingsScreen: View {
                     Link(destination: AppInfo.supportURL) {
                         Label("Help & FAQ", systemImage: "questionmark.circle")
                     }
-                    if let url = AppInfo.supportMailURL {
-                        Link(destination: url) {
-                            Label("Contact support", systemImage: "envelope")
-                        }
-                    }
+                    SupportContactRow()
                     if let id = AppInfo.appStoreID,
                        let url = URL(string: "https://apps.apple.com/app/id\(id)?action=write-review") {
                         Link(destination: url) {
@@ -104,6 +100,77 @@ struct SettingsScreen: View {
             ForEach(Array(Set(preferences.presets.map(\.volumeML) + [selection.wrappedValue])).sorted(), id: \.self) { ml in
                 Text(verbatim: preferences.format(ml)).tag(ml)
             }
+        }
+    }
+}
+
+/// Shows the support address and lets people pick how to write:
+/// Gmail / Outlook (app or web), Apple Mail, or just copy the address.
+struct SupportContactRow: View {
+    @Environment(\.openURL) private var openURL
+    @State private var copied = false
+
+    var body: some View {
+        Menu {
+            Section("Write with") {
+                ForEach(MailClient.allCases) { client in
+                    if client != .mail || isInstalled(.mail) {
+                        Button(client.title, systemImage: client.symbol) { write(with: client) }
+                    }
+                }
+            }
+            Button("Copy address", systemImage: "doc.on.doc") {
+                UIPasteboard.general.string = AppInfo.supportEmail
+                withAnimation { copied = true }
+                Task {
+                    try? await Task.sleep(for: .seconds(2))
+                    withAnimation { copied = false }
+                }
+            }
+        } label: {
+            Label {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Contact support")
+                    Text(copied ? String(localized: "Address copied") : AppInfo.supportEmail)
+                        .font(.caption)
+                        .foregroundStyle(copied ? Theme.success : Theme.textSecondary)
+                        .contentTransition(.opacity)
+                }
+            } icon: {
+                Image(systemName: copied ? "checkmark.circle.fill" : "envelope")
+                    .foregroundStyle(copied ? Theme.success : Theme.aqua)
+            }
+        }
+        .sensoryFeedback(.success, trigger: copied) { _, new in new }
+        .accessibilityHint(Text("Choose an email app or copy the address"))
+    }
+
+    private func isInstalled(_ client: MailClient) -> Bool {
+        client.appURL.map(UIApplication.shared.canOpenURL) ?? false
+    }
+
+    private func write(with client: MailClient) {
+        if isInstalled(client), let url = client.appURL {
+            openURL(url)
+        } else if let url = client.webURL ?? client.appURL {
+            openURL(url)
+        }
+    }
+}
+
+extension MailClient {
+    var title: String {
+        switch self {
+        case .gmail: "Gmail"
+        case .outlook: "Outlook"
+        case .mail: String(localized: "Mail")
+        }
+    }
+
+    var symbol: String {
+        switch self {
+        case .gmail, .outlook: "envelope"
+        case .mail: "envelope.fill"
         }
     }
 }

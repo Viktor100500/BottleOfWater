@@ -20,21 +20,6 @@ enum AppInfo {
     static let privacyPolicyURL = URL(string: "https://viktor100500.github.io/BottleOfWater/privacy/")!
     static let supportURL = URL(string: "https://viktor100500.github.io/BottleOfWater/")!
 
-    /// Pre-filled feedback email. The user sees and can edit everything before sending,
-    /// so nothing is collected behind their back.
-    static var supportMailURL: URL? {
-        var components = URLComponents()
-        components.scheme = "mailto"
-        components.path = supportEmail
-        let os = ProcessInfo.processInfo.operatingSystemVersion
-        let body = "\n\n—\nApp: Bottle of Water \(version)\n"
-            + "iOS: \(os.majorVersion).\(os.minorVersion).\(os.patchVersion)\n"
-            + "Device: \(deviceModel)"
-        components.queryItems = [URLQueryItem(name: "subject", value: supportSubject),
-                                 URLQueryItem(name: "body", value: body)]
-        return components.url
-    }
-
     /// Hardware identifier such as "iPhone17,1" (the simulator reports its host model).
     static var deviceModel: String {
         if let simulated = ProcessInfo.processInfo.environment["SIMULATOR_MODEL_IDENTIFIER"] { return simulated }
