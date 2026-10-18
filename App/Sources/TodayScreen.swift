@@ -108,10 +108,10 @@ struct TodayScreen: View {
                 } label: {
                     PresetTile(emoji: preset.emoji,
                                value: VolumeFormat.number(preset.volumeML, unit: preferences.unit),
-                               caption: preset.name)
+                               caption: preset.displayName)
                 }
                 .buttonStyle(PressableStyle())
-                .accessibilityLabel(Text("Add \(VolumeFormat.string(preset.volumeML, unit: preferences.unit)), \(preset.name)"))
+                .accessibilityLabel(Text("Add \(VolumeFormat.string(preset.volumeML, unit: preferences.unit)), \(preset.displayName)"))
             }
             Button {
                 sheet = .add(day: nil)
@@ -202,7 +202,7 @@ struct TodayLog: View {
                     .foregroundStyle(Theme.textPrimary)
                 Spacer()
                 if !entries.isEmpty {
-                    Text("^[\(entries.count) drink](inflect: true)")
+                    Text("\(entries.count) drinks")
                         .font(.subheadline)
                         .foregroundStyle(Theme.textTertiary)
                 }

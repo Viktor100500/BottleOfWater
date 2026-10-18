@@ -16,7 +16,7 @@ struct PresetsEditor: View {
                     } label: {
                         HStack(spacing: 12) {
                             Text(verbatim: preset.emoji).font(.title3)
-                            Text(verbatim: preset.name).foregroundStyle(Theme.textPrimary)
+                            Text(verbatim: preset.displayName).foregroundStyle(Theme.textPrimary)
                             Spacer()
                             Text(preferences.format(preset.volumeML))
                                 .fontWeight(.bold)
@@ -124,7 +124,7 @@ struct PresetEditorSheet: View {
         .onAppear {
             if let preset {
                 emoji = preset.emoji
-                name = preset.name
+                name = preset.displayName
                 amount = (preferences.unit.value(fromML: preset.volumeML) * 10).rounded() / 10
             }
         }

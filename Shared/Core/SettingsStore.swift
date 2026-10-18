@@ -8,23 +8,37 @@ struct VolumePreset: Codable, Identifiable, Equatable, Hashable, Sendable {
 
     static let maxCount = 8
 
+    /// Built-in names are stored as keys and translated on display, so they
+    /// follow the device language; names the user typed are shown as is.
+    var displayName: String {
+        switch name {
+        case "Sip": String(localized: "Sip")
+        case "Glass": String(localized: "Glass")
+        case "Cup": String(localized: "Cup")
+        case "Can": String(localized: "Can")
+        case "Bottle": String(localized: "Bottle")
+        case "Tumbler": String(localized: "Tumbler")
+        default: name
+        }
+    }
+
     static func defaults(for unit: VolumeUnit) -> [VolumePreset] {
         switch unit {
         case .milliliters:
             return [
-                VolumePreset(volumeML: 100, name: String(localized: "Sip"), emoji: "💧"),
-                VolumePreset(volumeML: 200, name: String(localized: "Glass"), emoji: "🥛"),
-                VolumePreset(volumeML: 250, name: String(localized: "Cup"), emoji: "☕️"),
-                VolumePreset(volumeML: 330, name: String(localized: "Can"), emoji: "🥤"),
-                VolumePreset(volumeML: 500, name: String(localized: "Bottle"), emoji: "🧊"),
+                VolumePreset(volumeML: 100, name: "Sip", emoji: "💧"),
+                VolumePreset(volumeML: 200, name: "Glass", emoji: "🥛"),
+                VolumePreset(volumeML: 250, name: "Cup", emoji: "☕️"),
+                VolumePreset(volumeML: 330, name: "Can", emoji: "🥤"),
+                VolumePreset(volumeML: 500, name: "Bottle", emoji: "🧊"),
             ]
         case .fluidOunces:
             return [
-                VolumePreset(volumeML: 118, name: String(localized: "Sip"), emoji: "💧"),
-                VolumePreset(volumeML: 237, name: String(localized: "Glass"), emoji: "🥛"),
-                VolumePreset(volumeML: 355, name: String(localized: "Can"), emoji: "🥤"),
-                VolumePreset(volumeML: 500, name: String(localized: "Bottle"), emoji: "🧊"),
-                VolumePreset(volumeML: 591, name: String(localized: "Tumbler"), emoji: "🧋"),
+                VolumePreset(volumeML: 118, name: "Sip", emoji: "💧"),
+                VolumePreset(volumeML: 237, name: "Glass", emoji: "🥛"),
+                VolumePreset(volumeML: 355, name: "Can", emoji: "🥤"),
+                VolumePreset(volumeML: 500, name: "Bottle", emoji: "🧊"),
+                VolumePreset(volumeML: 591, name: "Tumbler", emoji: "🧋"),
             ]
         }
     }

@@ -21,6 +21,7 @@
 		3231B1F392F00D6D780DE07F /* HistoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F4B59243FBA7A76CBB863A /* HistoryScreen.swift */; };
 		324BB24D8964635F55699515 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585A78C4EF266D16CB5BF83A /* AppGroup.swift */; };
 		3CD9279265807FB9D8F4A489 /* EntryEditorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C273CAD00D5AAE36517129 /* EntryEditorSheet.swift */; };
+		40A8E3F1C9078CB8D435951C /* AppShortcuts.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EA0A44C1FB16DDB469A4BA53 /* AppShortcuts.xcstrings */; };
 		4FE498A0A379D7C389C2EDD4 /* HealthSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A879D02A82CFA10D70976 /* HealthSync.swift */; };
 		5A74CB9BE31AE593CB5E0463 /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF507DC84A7CA00038A3B0 /* Volume.swift */; };
 		66F77215A0B1AC7215229088 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585A78C4EF266D16CB5BF83A /* AppGroup.swift */; };
@@ -39,6 +40,7 @@
 		B2A3849AB04F42916CD5CB1E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 96CD715C80EF07980F6D1C1B /* PrivacyInfo.xcprivacy */; };
 		B44BA5A5098389D1D329CC65 /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF507DC84A7CA00038A3B0 /* Volume.swift */; };
 		BA1B53C15804B85681B4819D /* WaterEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8D68E449AB19CEA630040 /* WaterEntry.swift */; };
+		D652939DA7E9B43A939641C0 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EE262D6CDDC289E413503476 /* InfoPlist.xcstrings */; };
 		DD6FD950A8838C6E455C3561 /* HealthSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A879D02A82CFA10D70976 /* HealthSync.swift */; };
 		DE20C8A2736B74A573F585AE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F234DE784DDA955DCAC20B /* Theme.swift */; };
 		E1364ECB6D659004C37B984A /* WaterStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBDAE3D2408372DEE9E0171 /* WaterStore.swift */; };
@@ -110,6 +112,8 @@
 		C4C8D68E449AB19CEA630040 /* WaterEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterEntry.swift; sourceTree = "<group>"; };
 		C4EA88B6C765B1228270DAE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2B8349434A635DA6293B15B /* HistoryMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMath.swift; sourceTree = "<group>"; };
+		EA0A44C1FB16DDB469A4BA53 /* AppShortcuts.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = AppShortcuts.xcstrings; sourceTree = "<group>"; };
+		EE262D6CDDC289E413503476 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		EF26B88FA3330F607F8F3FBB /* RemindersScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersScreen.swift; sourceTree = "<group>"; };
 		EFFF1F84B36D83D1371FAD60 /* WaterIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterIntents.swift; sourceTree = "<group>"; };
 		FFBDAE3D2408372DEE9E0171 /* WaterStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterStore.swift; sourceTree = "<group>"; };
@@ -195,7 +199,9 @@
 		AD2FAE7B54A49FCFB675B953 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA0A44C1FB16DDB469A4BA53 /* AppShortcuts.xcstrings */,
 				C4EA88B6C765B1228270DAE2 /* Assets.xcassets */,
+				EE262D6CDDC289E413503476 /* InfoPlist.xcstrings */,
 				84220CA0379FBCF69BB6B876 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Resources;
@@ -383,7 +389,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40A8E3F1C9078CB8D435951C /* AppShortcuts.xcstrings in Resources */,
 				9AD125B3BF0CF31B93673DE4 /* Assets.xcassets in Resources */,
+				D652939DA7E9B43A939641C0 /* InfoPlist.xcstrings in Resources */,
 				7024E1C60E8DDD2E7D34BF6E /* Localizable.xcstrings in Resources */,
 				E543350108BB78874A22EB73 /* PrivacyInfo.xcprivacy in Resources */,
 			);
