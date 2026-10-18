@@ -23,6 +23,7 @@
 		324BB24D8964635F55699515 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585A78C4EF266D16CB5BF83A /* AppGroup.swift */; };
 		3CD9279265807FB9D8F4A489 /* EntryEditorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C273CAD00D5AAE36517129 /* EntryEditorSheet.swift */; };
 		40A8E3F1C9078CB8D435951C /* AppShortcuts.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EA0A44C1FB16DDB469A4BA53 /* AppShortcuts.xcstrings */; };
+		4ED7EF89070DF5004F380983 /* SupportMail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8188A69A3ADC5E21A98734FC /* SupportMail.swift */; };
 		4FE498A0A379D7C389C2EDD4 /* HealthSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A879D02A82CFA10D70976 /* HealthSync.swift */; };
 		5A74CB9BE31AE593CB5E0463 /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF507DC84A7CA00038A3B0 /* Volume.swift */; };
 		66F77215A0B1AC7215229088 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585A78C4EF266D16CB5BF83A /* AppGroup.swift */; };
@@ -42,6 +43,7 @@
 		B44BA5A5098389D1D329CC65 /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF507DC84A7CA00038A3B0 /* Volume.swift */; };
 		BA1B53C15804B85681B4819D /* WaterEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8D68E449AB19CEA630040 /* WaterEntry.swift */; };
 		D652939DA7E9B43A939641C0 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EE262D6CDDC289E413503476 /* InfoPlist.xcstrings */; };
+		DD280FA0E56C40F5B429D97F /* SupportMail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8188A69A3ADC5E21A98734FC /* SupportMail.swift */; };
 		DD6FD950A8838C6E455C3561 /* HealthSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A879D02A82CFA10D70976 /* HealthSync.swift */; };
 		DE20C8A2736B74A573F585AE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F234DE784DDA955DCAC20B /* Theme.swift */; };
 		E1364ECB6D659004C37B984A /* WaterStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBDAE3D2408372DEE9E0171 /* WaterStore.swift */; };
@@ -102,6 +104,7 @@
 		5F1F720446DAA49BC388F55D /* BottleOfWaterTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BottleOfWaterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		774983F39E413D0BC5D96524 /* BottleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottleWidget.swift; sourceTree = "<group>"; };
 		7FBE7331633AC7EE35E1E0DD /* BottleOfWater.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BottleOfWater.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8188A69A3ADC5E21A98734FC /* SupportMail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportMail.swift; sourceTree = "<group>"; };
 		838BFE3EFB7065125635838A /* BottleWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = BottleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		84220CA0379FBCF69BB6B876 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		84DF507DC84A7CA00038A3B0 /* Volume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Volume.swift; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 				E2B8349434A635DA6293B15B /* HistoryMath.swift */,
 				5C66BB2022EFD41BB980AA88 /* ReminderPlanner.swift */,
 				BF170251CDAA470DC9CD3FDC /* SettingsStore.swift */,
+				8188A69A3ADC5E21A98734FC /* SupportMail.swift */,
 				84DF507DC84A7CA00038A3B0 /* Volume.swift */,
 			);
 			path = Core;
@@ -423,6 +427,7 @@
 				89FADC849B9B44076ABDD7E3 /* ReminderPlanner.swift in Sources */,
 				2D20216576F20B9589276E8E /* ReminderScheduler.swift in Sources */,
 				1F6722DE0DE00483399A7CF9 /* SettingsStore.swift in Sources */,
+				4ED7EF89070DF5004F380983 /* SupportMail.swift in Sources */,
 				69BBDA82B551E4C40CF40794 /* Theme.swift in Sources */,
 				5A74CB9BE31AE593CB5E0463 /* Volume.swift in Sources */,
 				BA1B53C15804B85681B4819D /* WaterEntry.swift in Sources */,
@@ -460,6 +465,7 @@
 				AB24022E65299D186F4FEF94 /* RemindersScreen.swift in Sources */,
 				B1F61AE715626702125C87C6 /* SettingsScreen.swift in Sources */,
 				E1ECCCF59E749C1D13215DD2 /* SettingsStore.swift in Sources */,
+				DD280FA0E56C40F5B429D97F /* SupportMail.swift in Sources */,
 				DE20C8A2736B74A573F585AE /* Theme.swift in Sources */,
 				F4104FEA8CB24F6DFB867B8E /* TodayScreen.swift in Sources */,
 				B44BA5A5098389D1D329CC65 /* Volume.swift in Sources */,

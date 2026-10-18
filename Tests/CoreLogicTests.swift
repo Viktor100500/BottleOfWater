@@ -155,14 +155,39 @@ struct HistoryMathTests {
 
 @Suite("Support")
 struct SupportTests {
-    @Test func feedbackMailIsAddressedAndTagged() throws {
-        let url = try #require(AppInfo.supportMailURL)
-        let components = try #require(URLComponents(url: url, resolvingAgainstBaseURL: false))
+    private func query(_ url: URL?) throws -> (URLComponents, [String: String]) {
+        let components = try #require(url.flatMap { URLComponents(url: $0, resolvingAgainstBaseURL: false) })
+        let items = Dictionary(uniqueKeysWithValues: (components.queryItems ?? []).map { ($0.name, $0.value ?? "") })
+        return (components, items)
+    }
+
+    @Test func mailAppDraftIsAddressedAndTagged() throws {
+        let (components, items) = try query(MailClient.mail.appURL)
         #expect(components.scheme == "mailto")
         #expect(components.path == "yar.thedeveloper@proton.me")
-        let items = Dictionary(uniqueKeysWithValues: (components.queryItems ?? []).map { ($0.name, $0.value ?? "") })
         #expect(items["subject"] == "[Bottle of Water] Feedback")
         #expect(items["body"]?.contains("App: Bottle of Water") == true)
-        #expect(items["body"]?.contains("iOS: ") == true)
+        #expect(MailClient.mail.webURL == nil)
+    }
+
+    @Test func gmailOpensAppOrWebComposer() throws {
+        let (app, appItems) = try query(MailClient.gmail.appURL)
+        #expect(app.url?.absoluteString.hasPrefix("googlegmail:///co?") == true)
+        #expect(appItems["to"] == "yar.thedeveloper@proton.me")
+
+        let (web, webItems) = try query(MailClient.gmail.webURL)
+        #expect(web.host == "mail.google.com")
+        #expect(webItems["view"] == "cm")
+        #expect(webItems["su"] == "[Bottle of Water] Feedback")
+    }
+
+    @Test func outlookOpensAppOrWebComposer() throws {
+        let (app, appItems) = try query(MailClient.outlook.appURL)
+        #expect(app.url?.absoluteString.hasPrefix("ms-outlook://compose?") == true)
+        #expect(appItems["subject"] == "[Bottle of Water] Feedback")
+
+        let (web, webItems) = try query(MailClient.outlook.webURL)
+        #expect(web.host == "outlook.live.com")
+        #expect(webItems["to"] == "yar.thedeveloper@proton.me")
     }
 }

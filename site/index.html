@@ -21,8 +21,19 @@
   <p class="lang"><a href="#ru">Русская версия ниже</a></p>
 
   <h2>Contact</h2>
-  <p>Questions, bugs or ideas? Write to us — we usually answer within a couple of days.</p>
-  <p><a class="pill" href="mailto:yar.thedeveloper@proton.me?subject=%5BBottle%20of%20Water%5D%20Feedback">Email support</a></p>
+  <p>Questions, bugs or ideas? Write to us — we usually answer within a couple of days. Please mention “Bottle of Water” in the subject.</p>
+  <div class="contact">
+    <div class="email-row">
+      <span class="email">yar.thedeveloper@proton.me</span>
+      <button class="copy" type="button" data-copy="yar.thedeveloper@proton.me" data-done="Copied ✓">Copy</button>
+    </div>
+    <p class="hint">Or write right away with:</p>
+    <div class="clients">
+      <a class="pill" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=yar.thedeveloper%40proton.me&amp;su=%5BBottle%20of%20Water%5D%20Feedback&amp;body=%0A%0A%E2%80%94%0AApp%3A%20Bottle%20of%20Water%0ADevice%20%2F%20iOS%3A%20" target="_blank" rel="noopener">Gmail</a>
+      <a class="pill alt" href="https://outlook.live.com/mail/0/deeplink/compose?to=yar.thedeveloper%40proton.me&amp;subject=%5BBottle%20of%20Water%5D%20Feedback&amp;body=%0A%0A%E2%80%94%0AApp%3A%20Bottle%20of%20Water%0ADevice%20%2F%20iOS%3A%20" target="_blank" rel="noopener">Outlook</a>
+      <a class="pill alt" href="mailto:yar.thedeveloper@proton.me?subject=%5BBottle%20of%20Water%5D%20Feedback&amp;body=%0A%0A%E2%80%94%0AApp%3A%20Bottle%20of%20Water%0ADevice%20%2F%20iOS%3A%20">Mail app</a>
+    </div>
+  </div>
 
   <h2>FAQ</h2>
   <div class="card">
@@ -58,8 +69,19 @@
 
   <section id="ru" lang="ru">
     <h2>Поддержка</h2>
-    <p>Вопросы, ошибки, идеи — напишите нам, обычно отвечаем в течение пары дней.</p>
-    <p><a class="pill" href="mailto:yar.thedeveloper@proton.me?subject=%5BBottle%20of%20Water%5D%20Feedback">Написать в поддержку</a></p>
+    <p>Вопросы, ошибки, идеи — напишите нам, обычно отвечаем в течение пары дней. Укажите в теме «Bottle of Water».</p>
+    <div class="contact">
+      <div class="email-row">
+        <span class="email">yar.thedeveloper@proton.me</span>
+        <button class="copy" type="button" data-copy="yar.thedeveloper@proton.me" data-done="Скопировано ✓">Скопировать</button>
+      </div>
+      <p class="hint">Или сразу напишите через:</p>
+      <div class="clients">
+        <a class="pill" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=yar.thedeveloper%40proton.me&amp;su=%5BBottle%20of%20Water%5D%20Feedback&amp;body=%0A%0A%E2%80%94%0AApp%3A%20Bottle%20of%20Water%0ADevice%20%2F%20iOS%3A%20" target="_blank" rel="noopener">Gmail</a>
+        <a class="pill alt" href="https://outlook.live.com/mail/0/deeplink/compose?to=yar.thedeveloper%40proton.me&amp;subject=%5BBottle%20of%20Water%5D%20Feedback&amp;body=%0A%0A%E2%80%94%0AApp%3A%20Bottle%20of%20Water%0ADevice%20%2F%20iOS%3A%20" target="_blank" rel="noopener">Outlook</a>
+        <a class="pill alt" href="mailto:yar.thedeveloper@proton.me?subject=%5BBottle%20of%20Water%5D%20Feedback&amp;body=%0A%0A%E2%80%94%0AApp%3A%20Bottle%20of%20Water%0ADevice%20%2F%20iOS%3A%20">Почта на устройстве</a>
+      </div>
+    </div>
 
     <h2>Частые вопросы</h2>
     <div class="card">
@@ -89,5 +111,31 @@
     <span>© 2026 Viktor Vlasov</span>
   </nav>
 </main>
+<script>
+  document.querySelectorAll('.copy').forEach(function (button) {
+    var label = button.textContent;
+    button.addEventListener('click', function () {
+      var text = button.dataset.copy;
+      var done = function () {
+        button.textContent = button.dataset.done;
+        button.classList.add('done');
+        setTimeout(function () { button.textContent = label; button.classList.remove('done'); }, 2000);
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done, function () { select(button); });
+      } else {
+        select(button);
+      }
+    });
+  });
+  // Fallback: select the address so it can be copied by hand.
+  function select(button) {
+    var range = document.createRange();
+    range.selectNodeContents(button.parentNode.querySelector('.email'));
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+  }
+</script>
 </body>
 </html>

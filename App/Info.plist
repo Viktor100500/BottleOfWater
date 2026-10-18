@@ -31,6 +31,8 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>x-apple-health</string>
+		<string>googlegmail</string>
+		<string>ms-outlook</string>
 	</array>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Bottle of Water saves every drink you log to Apple Health, so your water intake stays in one place.</string>

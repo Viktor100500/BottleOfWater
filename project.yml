@@ -39,7 +39,7 @@ targets:
         ITSAppUsesNonExemptEncryption: false
         UIBackgroundModes: [fetch]
         BGTaskSchedulerPermittedIdentifiers: [com.vlasov.bottleofwater.refresh]
-        LSApplicationQueriesSchemes: [x-apple-health]
+        LSApplicationQueriesSchemes: [x-apple-health, googlegmail, ms-outlook]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.vlasov.bottleofwater
