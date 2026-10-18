@@ -1,0 +1,76 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "NSHealthUpdateUsageDescription": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bottle of Water speichert jedes eingetragene Getränk in Apple Health, damit deine Wasserdaten an einem Ort sind."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bottle of Water saves every drink you log to Apple Health, so your water intake stays in one place."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bottle of Water guarda cada bebida que registras en Apple Salud para tener tus datos de agua en un solo lugar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bottle of Water enregistre chaque boisson dans Apple Santé pour regrouper vos données d’hydratation."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bottle of Water salva ogni bevuta registrata in Apple Salute, così i dati sull’acqua restano in un unico posto."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bottle of Waterは記録した水分をAppleヘルスケアに保存し、データを一か所にまとめます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bottle of Water는 기록한 물 섭취를 Apple 건강에 저장해 한곳에서 관리할 수 있게 해요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Bottle of Water salva cada bebida registrada no Apple Saúde para manter seus dados de água em um só lugar."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bottle of Water сохраняет каждую запись в Apple Health, чтобы все данные о воде были в одном месте."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bottle of Water, kaydettiğin her içişi Apple Sağlık’a kaydeder; böylece su verilerin tek yerde olur."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bottle of Water 会将你记录的每次饮水保存到 Apple“健康”，让饮水数据集中一处。"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

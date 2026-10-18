@@ -1,0 +1,58 @@
+:root {
+  --bg: #070b14;
+  --bg-top: #10223f;
+  --card: rgba(148, 184, 255, 0.07);
+  --stroke: rgba(148, 184, 255, 0.14);
+  --text: #f2f6ff;
+  --text-2: #9aa7bd;
+  --aqua: #22d3ee;
+  --indigo: #6366f1;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at 50% -10%, var(--bg-top), var(--bg) 70%) fixed, var(--bg);
+  color: var(--text);
+  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+main { max-width: 720px; margin: 0 auto; padding: 48px 16px 72px; }
+
+header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+header img { width: 72px; height: 72px; border-radius: 16px; }
+header h1 { margin: 0; font-size: 30px; line-height: 1.15; }
+header p { margin: 4px 0 0; color: var(--text-2); }
+
+h2 { font-size: 22px; margin: 40px 0 12px; }
+h3 { font-size: 17px; margin: 0 0 6px; }
+p, li { color: var(--text-2); }
+strong { color: var(--text); }
+a { color: var(--aqua); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  border-radius: 20px;
+  padding: 18px 20px;
+  margin: 12px 0;
+}
+.card p { margin: 0; }
+
+.pill {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--aqua), var(--indigo));
+  color: #04121c;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+nav { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--stroke); color: var(--text-2); font-size: 15px; }
+nav a { margin-right: 16px; }
+
+.lang { color: var(--text-2); font-size: 15px; }
+hr { border: 0; border-top: 1px solid var(--stroke); margin: 48px 0; }

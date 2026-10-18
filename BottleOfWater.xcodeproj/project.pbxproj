@@ -7,36 +7,60 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01758AF5FDCD6BBC2B5B6F79 /* CoreLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8AB4B387DE9D71A37FE15F /* CoreLogicTests.swift */; };
 		095E0B6152485C500A2C4624 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3ECEC9BE65B63D7D20441CC6 /* Localizable.xcstrings */; };
-		12112F7E863A336EA953C535 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174AD0CDCC00A40192BCCE8 /* RemindersView.swift */; };
+		09C654EDB0B9876ED84B5A40 /* DemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531151DA62B1F0FABE9F2305 /* DemoData.swift */; };
+		12498865935ADA2B2FDCA7AB /* WaterStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBDAE3D2408372DEE9E0171 /* WaterStore.swift */; };
+		153E74CEC744CBFE14416844 /* WaterEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8D68E449AB19CEA630040 /* WaterEntry.swift */; };
+		1A26EBF1DBD4663A7EAB8C77 /* HistoryMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8349434A635DA6293B15B /* HistoryMath.swift */; };
+		1F6722DE0DE00483399A7CF9 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF170251CDAA470DC9CD3FDC /* SettingsStore.swift */; };
 		202BF5DF37FAA7BB42F9CFA3 /* LiquidGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8BE80AD0F03B09267A2AEE /* LiquidGauge.swift */; };
-		241B7A0E4B1B69086B3BCF13 /* BottleShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66791AC10DC49C03DD88E928 /* BottleShared.swift */; };
-		2DA29DF8D5C0E073539C1237 /* WidgetLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DA64AA7D3A6D3F8C5F9CBE /* WidgetLogger.swift */; };
-		32044E5F1FE7B493759C7181 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE0D49D23CA8EE2514D37F1 /* Models.swift */; };
-		322CDEAC26FA7EC889F72A69 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AA11998EC5417EDCF21AD /* HealthKitService.swift */; };
-		37BF154BABE3B07C5606D0F3 /* HydrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D9DB916A9B5B463E4CBFCE /* HydrationService.swift */; };
-		4229C1E1793BB503C734EBEB /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE0D49D23CA8EE2514D37F1 /* Models.swift */; };
-		43B49E1AD5395333833DEF88 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CAFBD3D5FC1E68BA9284F /* HomeView.swift */; };
-		523DAD22E25E5D368BF40688 /* LogWaterIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE635E3C5867AEA52489F8D4 /* LogWaterIntent.swift */; };
-		661F39CF5C2151077BE09CCC /* BottleShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66791AC10DC49C03DD88E928 /* BottleShared.swift */; };
+		23D9C52C87A21187E7C0482D /* WaterIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF1F84B36D83D1371FAD60 /* WaterIntents.swift */; };
+		264D15A2B6C0531DE972823F /* WaterIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF1F84B36D83D1371FAD60 /* WaterIntents.swift */; };
+		2694B10D30F59D981CCB5082 /* AppShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A0341E53C385AC8319DFD2 /* AppShortcuts.swift */; };
+		2D20216576F20B9589276E8E /* ReminderScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132D32251AB1DED58FE4E961 /* ReminderScheduler.swift */; };
+		3231B1F392F00D6D780DE07F /* HistoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F4B59243FBA7A76CBB863A /* HistoryScreen.swift */; };
+		324BB24D8964635F55699515 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585A78C4EF266D16CB5BF83A /* AppGroup.swift */; };
+		3CD9279265807FB9D8F4A489 /* EntryEditorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C273CAD00D5AAE36517129 /* EntryEditorSheet.swift */; };
+		40A8E3F1C9078CB8D435951C /* AppShortcuts.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EA0A44C1FB16DDB469A4BA53 /* AppShortcuts.xcstrings */; };
+		4FE498A0A379D7C389C2EDD4 /* HealthSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A879D02A82CFA10D70976 /* HealthSync.swift */; };
+		5A74CB9BE31AE593CB5E0463 /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF507DC84A7CA00038A3B0 /* Volume.swift */; };
+		66F77215A0B1AC7215229088 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585A78C4EF266D16CB5BF83A /* AppGroup.swift */; };
 		670AD525EA2757B6E441808D /* BottleWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 838BFE3EFB7065125635838A /* BottleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		69BBDA82B551E4C40CF40794 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F234DE784DDA955DCAC20B /* Theme.swift */; };
 		7024E1C60E8DDD2E7D34BF6E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3ECEC9BE65B63D7D20441CC6 /* Localizable.xcstrings */; };
 		7CB6E84DCF8C2635BB879968 /* BottleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774983F39E413D0BC5D96524 /* BottleWidget.swift */; };
-		8226AC71AC3C643782680FDF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76D9F8D10C5787E61F3E555 /* SettingsView.swift */; };
+		8371B61784D46CA01237C938 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E301ACE05FB7A32CCFE5C1A /* OnboardingView.swift */; };
+		83B4A52705C4323F8A1DD96B /* ReminderPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66BB2022EFD41BB980AA88 /* ReminderPlanner.swift */; };
+		89FADC849B9B44076ABDD7E3 /* ReminderPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66BB2022EFD41BB980AA88 /* ReminderPlanner.swift */; };
+		95AB51D210C3B6B175FEE90D /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F64C21F9404ED89375C1E19 /* Preferences.swift */; };
+		9840529A191220A07C4AF065 /* ReminderScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132D32251AB1DED58FE4E961 /* ReminderScheduler.swift */; };
 		9AD125B3BF0CF31B93673DE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EA88B6C765B1228270DAE2 /* Assets.xcassets */; };
-		AD2FB499946C508BAE739363 /* ReminderPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E90266B5845C8DF4B38BEF /* ReminderPlanner.swift */; };
-		C0547F02EE331EBC01FA5AD1 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA578E548177E878D7393CCB /* TodayView.swift */; };
-		C578C4723BFD6EAD5E22A0E1 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AA11998EC5417EDCF21AD /* HealthKitService.swift */; };
-		D791671C00BA650A93D2AE53 /* WidgetLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DA64AA7D3A6D3F8C5F9CBE /* WidgetLogger.swift */; };
-		DD2A6AD02A0CA16D879BCB3D /* HydrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D9DB916A9B5B463E4CBFCE /* HydrationService.swift */; };
+		AB24022E65299D186F4FEF94 /* RemindersScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26B88FA3330F607F8F3FBB /* RemindersScreen.swift */; };
+		B1F61AE715626702125C87C6 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF276BA46F8F0706E47D73B /* SettingsScreen.swift */; };
+		B2A3849AB04F42916CD5CB1E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 96CD715C80EF07980F6D1C1B /* PrivacyInfo.xcprivacy */; };
+		B44BA5A5098389D1D329CC65 /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF507DC84A7CA00038A3B0 /* Volume.swift */; };
+		BA1B53C15804B85681B4819D /* WaterEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8D68E449AB19CEA630040 /* WaterEntry.swift */; };
+		D652939DA7E9B43A939641C0 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EE262D6CDDC289E413503476 /* InfoPlist.xcstrings */; };
+		DD6FD950A8838C6E455C3561 /* HealthSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A879D02A82CFA10D70976 /* HealthSync.swift */; };
 		DE20C8A2736B74A573F585AE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F234DE784DDA955DCAC20B /* Theme.swift */; };
-		DE8C61D266BCD5D4C7DE4A4A /* LogWaterIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE635E3C5867AEA52489F8D4 /* LogWaterIntent.swift */; };
+		E1364ECB6D659004C37B984A /* WaterStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBDAE3D2408372DEE9E0171 /* WaterStore.swift */; };
+		E1ECCCF59E749C1D13215DD2 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF170251CDAA470DC9CD3FDC /* SettingsStore.swift */; };
+		E47315644386CB77EF76705E /* PresetsEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A636B38A57FDBB1435530A /* PresetsEditor.swift */; };
+		E543350108BB78874A22EB73 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 84220CA0379FBCF69BB6B876 /* PrivacyInfo.xcprivacy */; };
+		ED8C47DBACAC7170D92ACB29 /* HistoryMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8349434A635DA6293B15B /* HistoryMath.swift */; };
+		F4104FEA8CB24F6DFB867B8E /* TodayScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EA269855F2A3ABECD51836 /* TodayScreen.swift */; };
 		FCF0250A540A67DF38543669 /* BottleOfWaterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAA5BF8AE1F0ECECD641B8F /* BottleOfWaterApp.swift */; };
-		FEED92F81BC5566F8DA386B2 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E7758F52F35CACBE1119DE /* HistoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		61B6DA0EB150A8EAA2B94372 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 982DE047F4CA9F735E6A19DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6E3679249FD3AE0550604FEB;
+			remoteInfo = BottleOfWater;
+		};
 		FE3118B1AE28D7BA6864A4F1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 982DE047F4CA9F735E6A19DC /* Project object */;
@@ -61,35 +85,69 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		000CAFBD3D5FC1E68BA9284F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		00F234DE784DDA955DCAC20B /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		0D8AB4B387DE9D71A37FE15F /* CoreLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLogicTests.swift; sourceTree = "<group>"; };
+		10C273CAD00D5AAE36517129 /* EntryEditorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryEditorSheet.swift; sourceTree = "<group>"; };
+		132D32251AB1DED58FE4E961 /* ReminderScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderScheduler.swift; sourceTree = "<group>"; };
+		155A879D02A82CFA10D70976 /* HealthSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthSync.swift; sourceTree = "<group>"; };
+		16A0341E53C385AC8319DFD2 /* AppShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppShortcuts.swift; sourceTree = "<group>"; };
 		1E8BE80AD0F03B09267A2AEE /* LiquidGauge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGauge.swift; sourceTree = "<group>"; };
-		28E90266B5845C8DF4B38BEF /* ReminderPlanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderPlanner.swift; sourceTree = "<group>"; };
-		2A5AA11998EC5417EDCF21AD /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
-		2FE0D49D23CA8EE2514D37F1 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		38F4B59243FBA7A76CBB863A /* HistoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreen.swift; sourceTree = "<group>"; };
 		3ECEC9BE65B63D7D20441CC6 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		5174AD0CDCC00A40192BCCE8 /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
-		66791AC10DC49C03DD88E928 /* BottleShared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottleShared.swift; sourceTree = "<group>"; };
-		72DA64AA7D3A6D3F8C5F9CBE /* WidgetLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetLogger.swift; sourceTree = "<group>"; };
+		531151DA62B1F0FABE9F2305 /* DemoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoData.swift; sourceTree = "<group>"; };
+		53A636B38A57FDBB1435530A /* PresetsEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsEditor.swift; sourceTree = "<group>"; };
+		585A78C4EF266D16CB5BF83A /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
+		5C66BB2022EFD41BB980AA88 /* ReminderPlanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderPlanner.swift; sourceTree = "<group>"; };
+		5E301ACE05FB7A32CCFE5C1A /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		5F1F720446DAA49BC388F55D /* BottleOfWaterTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BottleOfWaterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		774983F39E413D0BC5D96524 /* BottleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottleWidget.swift; sourceTree = "<group>"; };
-		7FBE7331633AC7EE35E1E0DD /* BottleOfWater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BottleOfWater.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		838BFE3EFB7065125635838A /* BottleWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BottleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		94D9DB916A9B5B463E4CBFCE /* HydrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrationService.swift; sourceTree = "<group>"; };
+		7FBE7331633AC7EE35E1E0DD /* BottleOfWater.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BottleOfWater.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		838BFE3EFB7065125635838A /* BottleWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = BottleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		84220CA0379FBCF69BB6B876 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		84DF507DC84A7CA00038A3B0 /* Volume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Volume.swift; sourceTree = "<group>"; };
+		96CD715C80EF07980F6D1C1B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		9F64C21F9404ED89375C1E19 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		9FAA5BF8AE1F0ECECD641B8F /* BottleOfWaterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottleOfWaterApp.swift; sourceTree = "<group>"; };
-		B3854AB598B7E7994B308198 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		BA578E548177E878D7393CCB /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		A2EA269855F2A3ABECD51836 /* TodayScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayScreen.swift; sourceTree = "<group>"; };
+		BDF276BA46F8F0706E47D73B /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		BF170251CDAA470DC9CD3FDC /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		C4C8D68E449AB19CEA630040 /* WaterEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterEntry.swift; sourceTree = "<group>"; };
 		C4EA88B6C765B1228270DAE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DE635E3C5867AEA52489F8D4 /* LogWaterIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWaterIntent.swift; sourceTree = "<group>"; };
-		E76D9F8D10C5787E61F3E555 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		E9E7758F52F35CACBE1119DE /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		E2B8349434A635DA6293B15B /* HistoryMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMath.swift; sourceTree = "<group>"; };
+		EA0A44C1FB16DDB469A4BA53 /* AppShortcuts.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = AppShortcuts.xcstrings; sourceTree = "<group>"; };
+		EE262D6CDDC289E413503476 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		EF26B88FA3330F607F8F3FBB /* RemindersScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersScreen.swift; sourceTree = "<group>"; };
+		EFFF1F84B36D83D1371FAD60 /* WaterIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterIntents.swift; sourceTree = "<group>"; };
+		FFBDAE3D2408372DEE9E0171 /* WaterStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		11FA710B862BDEA38CD95889 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				585A78C4EF266D16CB5BF83A /* AppGroup.swift */,
+				E2B8349434A635DA6293B15B /* HistoryMath.swift */,
+				5C66BB2022EFD41BB980AA88 /* ReminderPlanner.swift */,
+				BF170251CDAA470DC9CD3FDC /* SettingsStore.swift */,
+				84DF507DC84A7CA00038A3B0 /* Volume.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		287BBFE1E2A9BAE8D588F61F /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+				EFFF1F84B36D83D1371FAD60 /* WaterIntents.swift */,
+			);
+			path = Intents;
+			sourceTree = "<group>";
+		};
 		2C5E6A973FEC7E7FC47FB086 = {
 			isa = PBXGroup;
 			children = (
 				42F5FA6A79ED15840FCC511F /* App */,
 				E81285B6F56E5FEB1A79C8D9 /* Shared */,
+				5D653E13DFA2FF1D5D6C38EA /* Tests */,
 				6C47A7589D8973CC829AC27A /* Widget */,
 				3FA74DA1603DD26330DD8140 /* Products */,
 			);
@@ -99,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				7FBE7331633AC7EE35E1E0DD /* BottleOfWater.app */,
+				5F1F720446DAA49BC388F55D /* BottleOfWaterTests.xctest */,
 				838BFE3EFB7065125635838A /* BottleWidget.appex */,
 			);
 			name = Products;
@@ -113,9 +172,27 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		59D3F0722795BC3073AE5D6F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				155A879D02A82CFA10D70976 /* HealthSync.swift */,
+				132D32251AB1DED58FE4E961 /* ReminderScheduler.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		5D653E13DFA2FF1D5D6C38EA /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0D8AB4B387DE9D71A37FE15F /* CoreLogicTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		6C47A7589D8973CC829AC27A /* Widget */ = {
 			isa = PBXGroup;
 			children = (
+				F2F1FFC84E80C330393E66A6 /* Resources */,
 				DA24C3ED4585FD254FF8B256 /* Sources */,
 			);
 			path = Widget;
@@ -124,8 +201,10 @@
 		AD2FAE7B54A49FCFB675B953 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA0A44C1FB16DDB469A4BA53 /* AppShortcuts.xcstrings */,
 				C4EA88B6C765B1228270DAE2 /* Assets.xcassets */,
-				B3854AB598B7E7994B308198 /* Info.plist */,
+				EE262D6CDDC289E413503476 /* InfoPlist.xcstrings */,
+				84220CA0379FBCF69BB6B876 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -146,17 +225,24 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		E0E899A07109617BBE1601FF /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C4C8D68E449AB19CEA630040 /* WaterEntry.swift */,
+				FFBDAE3D2408372DEE9E0171 /* WaterStore.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		E81285B6F56E5FEB1A79C8D9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				66791AC10DC49C03DD88E928 /* BottleShared.swift */,
-				2A5AA11998EC5417EDCF21AD /* HealthKitService.swift */,
-				94D9DB916A9B5B463E4CBFCE /* HydrationService.swift */,
 				3ECEC9BE65B63D7D20441CC6 /* Localizable.xcstrings */,
-				DE635E3C5867AEA52489F8D4 /* LogWaterIntent.swift */,
-				2FE0D49D23CA8EE2514D37F1 /* Models.swift */,
-				72DA64AA7D3A6D3F8C5F9CBE /* WidgetLogger.swift */,
+				11FA710B862BDEA38CD95889 /* Core */,
+				E0E899A07109617BBE1601FF /* Data */,
 				D9E9F0DCF934EDB5534231D9 /* DesignSystem */,
+				287BBFE1E2A9BAE8D588F61F /* Intents */,
+				59D3F0722795BC3073AE5D6F /* Services */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -164,16 +250,28 @@
 		EFAE327B374A4312E6A51171 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				16A0341E53C385AC8319DFD2 /* AppShortcuts.swift */,
 				9FAA5BF8AE1F0ECECD641B8F /* BottleOfWaterApp.swift */,
-				E9E7758F52F35CACBE1119DE /* HistoryView.swift */,
-				000CAFBD3D5FC1E68BA9284F /* HomeView.swift */,
+				531151DA62B1F0FABE9F2305 /* DemoData.swift */,
+				10C273CAD00D5AAE36517129 /* EntryEditorSheet.swift */,
+				38F4B59243FBA7A76CBB863A /* HistoryScreen.swift */,
 				1E8BE80AD0F03B09267A2AEE /* LiquidGauge.swift */,
-				28E90266B5845C8DF4B38BEF /* ReminderPlanner.swift */,
-				5174AD0CDCC00A40192BCCE8 /* RemindersView.swift */,
-				E76D9F8D10C5787E61F3E555 /* SettingsView.swift */,
-				BA578E548177E878D7393CCB /* TodayView.swift */,
+				5E301ACE05FB7A32CCFE5C1A /* OnboardingView.swift */,
+				9F64C21F9404ED89375C1E19 /* Preferences.swift */,
+				53A636B38A57FDBB1435530A /* PresetsEditor.swift */,
+				EF26B88FA3330F607F8F3FBB /* RemindersScreen.swift */,
+				BDF276BA46F8F0706E47D73B /* SettingsScreen.swift */,
+				A2EA269855F2A3ABECD51836 /* TodayScreen.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		F2F1FFC84E80C330393E66A6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				96CD715C80EF07980F6D1C1B /* PrivacyInfo.xcprivacy */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +315,24 @@
 			productReference = 7FBE7331633AC7EE35E1E0DD /* BottleOfWater.app */;
 			productType = "com.apple.product-type.application";
 		};
+		F5C03EC17E026F8C95D8DE32 /* BottleOfWaterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 484A60A22A685756B4872F77 /* Build configuration list for PBXNativeTarget "BottleOfWaterTests" */;
+			buildPhases = (
+				49EB9630FBA14456ACB3AF8D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				058E971BF4349C03F448BE13 /* PBXTargetDependency */,
+			);
+			name = BottleOfWaterTests;
+			packageProductDependencies = (
+			);
+			productName = BottleOfWaterTests;
+			productReference = 5F1F720446DAA49BC388F55D /* BottleOfWaterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -227,9 +343,15 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					40FD2EAF904FDB3FBD458E18 = {
+						DevelopmentTeam = KZDJV245WR;
 						ProvisioningStyle = Automatic;
 					};
 					6E3679249FD3AE0550604FEB = {
+						DevelopmentTeam = KZDJV245WR;
+						ProvisioningStyle = Automatic;
+					};
+					F5C03EC17E026F8C95D8DE32 = {
+						DevelopmentTeam = KZDJV245WR;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -259,6 +381,7 @@
 			projectRoot = "";
 			targets = (
 				6E3679249FD3AE0550604FEB /* BottleOfWater */,
+				F5C03EC17E026F8C95D8DE32 /* BottleOfWaterTests */,
 				40FD2EAF904FDB3FBD458E18 /* BottleWidget */,
 			);
 		};
@@ -269,8 +392,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40A8E3F1C9078CB8D435951C /* AppShortcuts.xcstrings in Resources */,
 				9AD125B3BF0CF31B93673DE4 /* Assets.xcassets in Resources */,
+				D652939DA7E9B43A939641C0 /* InfoPlist.xcstrings in Resources */,
 				7024E1C60E8DDD2E7D34BF6E /* Localizable.xcstrings in Resources */,
+				E543350108BB78874A22EB73 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				095E0B6152485C500A2C4624 /* Localizable.xcstrings in Resources */,
+				B2A3849AB04F42916CD5CB1E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,14 +416,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				241B7A0E4B1B69086B3BCF13 /* BottleShared.swift in Sources */,
+				66F77215A0B1AC7215229088 /* AppGroup.swift in Sources */,
 				7CB6E84DCF8C2635BB879968 /* BottleWidget.swift in Sources */,
-				322CDEAC26FA7EC889F72A69 /* HealthKitService.swift in Sources */,
-				DD2A6AD02A0CA16D879BCB3D /* HydrationService.swift in Sources */,
-				DE8C61D266BCD5D4C7DE4A4A /* LogWaterIntent.swift in Sources */,
-				32044E5F1FE7B493759C7181 /* Models.swift in Sources */,
+				4FE498A0A379D7C389C2EDD4 /* HealthSync.swift in Sources */,
+				1A26EBF1DBD4663A7EAB8C77 /* HistoryMath.swift in Sources */,
+				89FADC849B9B44076ABDD7E3 /* ReminderPlanner.swift in Sources */,
+				2D20216576F20B9589276E8E /* ReminderScheduler.swift in Sources */,
+				1F6722DE0DE00483399A7CF9 /* SettingsStore.swift in Sources */,
 				69BBDA82B551E4C40CF40794 /* Theme.swift in Sources */,
-				2DA29DF8D5C0E073539C1237 /* WidgetLogger.swift in Sources */,
+				5A74CB9BE31AE593CB5E0463 /* Volume.swift in Sources */,
+				BA1B53C15804B85681B4819D /* WaterEntry.swift in Sources */,
+				264D15A2B6C0531DE972823F /* WaterIntents.swift in Sources */,
+				12498865935ADA2B2FDCA7AB /* WaterStore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49EB9630FBA14456ACB3AF8D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01758AF5FDCD6BBC2B5B6F79 /* CoreLogicTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,27 +443,40 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				324BB24D8964635F55699515 /* AppGroup.swift in Sources */,
+				2694B10D30F59D981CCB5082 /* AppShortcuts.swift in Sources */,
 				FCF0250A540A67DF38543669 /* BottleOfWaterApp.swift in Sources */,
-				661F39CF5C2151077BE09CCC /* BottleShared.swift in Sources */,
-				C578C4723BFD6EAD5E22A0E1 /* HealthKitService.swift in Sources */,
-				FEED92F81BC5566F8DA386B2 /* HistoryView.swift in Sources */,
-				43B49E1AD5395333833DEF88 /* HomeView.swift in Sources */,
-				37BF154BABE3B07C5606D0F3 /* HydrationService.swift in Sources */,
+				09C654EDB0B9876ED84B5A40 /* DemoData.swift in Sources */,
+				3CD9279265807FB9D8F4A489 /* EntryEditorSheet.swift in Sources */,
+				DD6FD950A8838C6E455C3561 /* HealthSync.swift in Sources */,
+				ED8C47DBACAC7170D92ACB29 /* HistoryMath.swift in Sources */,
+				3231B1F392F00D6D780DE07F /* HistoryScreen.swift in Sources */,
 				202BF5DF37FAA7BB42F9CFA3 /* LiquidGauge.swift in Sources */,
-				523DAD22E25E5D368BF40688 /* LogWaterIntent.swift in Sources */,
-				4229C1E1793BB503C734EBEB /* Models.swift in Sources */,
-				AD2FB499946C508BAE739363 /* ReminderPlanner.swift in Sources */,
-				12112F7E863A336EA953C535 /* RemindersView.swift in Sources */,
-				8226AC71AC3C643782680FDF /* SettingsView.swift in Sources */,
+				8371B61784D46CA01237C938 /* OnboardingView.swift in Sources */,
+				95AB51D210C3B6B175FEE90D /* Preferences.swift in Sources */,
+				E47315644386CB77EF76705E /* PresetsEditor.swift in Sources */,
+				83B4A52705C4323F8A1DD96B /* ReminderPlanner.swift in Sources */,
+				9840529A191220A07C4AF065 /* ReminderScheduler.swift in Sources */,
+				AB24022E65299D186F4FEF94 /* RemindersScreen.swift in Sources */,
+				B1F61AE715626702125C87C6 /* SettingsScreen.swift in Sources */,
+				E1ECCCF59E749C1D13215DD2 /* SettingsStore.swift in Sources */,
 				DE20C8A2736B74A573F585AE /* Theme.swift in Sources */,
-				C0547F02EE331EBC01FA5AD1 /* TodayView.swift in Sources */,
-				D791671C00BA650A93D2AE53 /* WidgetLogger.swift in Sources */,
+				F4104FEA8CB24F6DFB867B8E /* TodayScreen.swift in Sources */,
+				B44BA5A5098389D1D329CC65 /* Volume.swift in Sources */,
+				153E74CEC744CBFE14416844 /* WaterEntry.swift in Sources */,
+				23D9C52C87A21187E7C0482D /* WaterIntents.swift in Sources */,
+				E1364ECB6D659004C37B984A /* WaterStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		058E971BF4349C03F448BE13 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6E3679249FD3AE0550604FEB /* BottleOfWater */;
+			targetProxy = 61B6DA0EB150A8EAA2B94372 /* PBXContainerItemProxy */;
+		};
 		E222FAB3292C2908510F15A0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 40FD2EAF904FDB3FBD458E18 /* BottleWidget */;
@@ -337,10 +489,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/BottleOfWater.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = KZDJV245WR;
-				INFOPLIST_FILE = App/Resources/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -387,9 +539,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = KZDJV245WR;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -404,7 +559,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -412,8 +568,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -421,10 +578,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/BottleOfWater.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = KZDJV245WR;
-				INFOPLIST_FILE = App/Resources/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -434,6 +591,40 @@
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
+		};
+		5728532C7312FC8D83876B4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vlasov.bottleofwater.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BottleOfWater.app/BottleOfWater";
+			};
+			name = Release;
+		};
+		9FCC02A94F4299614000A497 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vlasov.bottleofwater.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BottleOfWater.app/BottleOfWater";
+			};
+			name = Debug;
 		};
 		BD8219D4430AB61406418AF7 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -471,9 +662,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = KZDJV245WR;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -482,15 +676,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
@@ -498,7 +694,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Widget/BottleWidget.entitlements;
-				DEVELOPMENT_TEAM = KZDJV245WR;
 				INFOPLIST_FILE = Widget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -515,7 +710,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Widget/BottleWidget.entitlements;
-				DEVELOPMENT_TEAM = KZDJV245WR;
 				INFOPLIST_FILE = Widget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -536,6 +730,15 @@
 			buildConfigurations = (
 				3C52F9AAA31EFDC1F72E8A70 /* Debug */,
 				BD8219D4430AB61406418AF7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		484A60A22A685756B4872F77 /* Build configuration list for PBXNativeTarget "BottleOfWaterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FCC02A94F4299614000A497 /* Debug */,
+				5728532C7312FC8D83876B4E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
