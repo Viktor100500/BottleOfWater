@@ -1,108 +1,124 @@
-import SwiftUI
 import CoreMotion
+import SwiftUI
 
-/// Publishes the device roll angle so the liquid surface can stay level
-/// in the real world while the phone tilts.
-final class TiltMotion: ObservableObject {
+/// Device roll, so the liquid surface stays level as the phone tilts.
+/// Not observable on purpose: it's read inside the TimelineView frame closure,
+/// which redraws anyway — observing would re-render the whole gauge per sample.
+@MainActor
+final class TiltMotion {
     static let shared = TiltMotion()
     private let manager = CMMotionManager()
-    @Published private(set) var tilt: Double = 0   // radians, clamped
+    private var users = 0
+    private(set) var tilt: Double = 0
 
     func start() {
-        guard manager.isDeviceMotionAvailable, !manager.isDeviceMotionActive else { return }
-        manager.deviceMotionUpdateInterval = 1.0 / 60.0
-        manager.startDeviceMotionUpdates(to: .main) { [weak self] motion, _ in
-            guard let g = motion?.gravity else { return }
-            // Roll of the device relative to upright portrait.
-            let angle = atan2(g.x, -g.y)
-            self?.tilt = max(-0.5, min(0.5, angle))
+        users += 1
+        guard users == 1, manager.isDeviceMotionAvailable else { return }
+        manager.deviceMotionUpdateInterval = 1.0 / 30.0
+        manager.startDeviceMotionUpdates(to: .main) { motion, _ in
+            guard let gravity = motion?.gravity else { return }
+            MainActor.assumeIsolated {
+                let angle = atan2(gravity.x, -gravity.y)
+                TiltMotion.shared.tilt = max(-0.5, min(0.5, angle))
+            }
         }
     }
 
     func stop() {
+        users = max(0, users - 1)
+        guard users == 0 else { return }
         manager.stopDeviceMotionUpdates()
+        tilt = 0
     }
 }
 
-/// The "vessel with a wave" — hero of the home screen. Liquid level = goal progress.
+/// The vessel with a wave — hero of the Today screen. Liquid level = goal progress.
 struct LiquidGauge: View {
     var totalML: Int
     var goalML: Int
-    var useOunces: Bool = false
+    var unit: VolumeUnit
+    var size = CGSize(width: 210, height: 248)
 
-    // Без @ObservedObject: наклон читается внутри кадрового замыкания TimelineView,
-    // которое и так перерисовывается каждый кадр. Подписка на 60 Гц публикаций
-    // заставляла пересобирать ВЕСЬ gauge (текст, форматтеры) на каждый тик
-    // акселерометра — лишняя нагрузка поверх покадровой отрисовки волны.
-    private let motion = TiltMotion.shared
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var isVisible = false
 
-    private var progress: Double { min(1, Double(totalML) / Double(max(1, goalML))) }
+    private var progress: Double { ProgressMath.fraction(total: totalML, goal: goalML) }
     private var goalReached: Bool { totalML >= goalML }
+    private var radius: CGFloat { size.width * 0.29 }
+    private var animating: Bool { isVisible && scenePhase == .active && !reduceMotion }
 
     var body: some View {
         ZStack {
-            // Liquid with a drifting wave; surface stays level as the phone tilts.
-            // .animation without minimumInterval renders at display refresh rate
-            // (60 fps, 120 on ProMotion).
-            TimelineView(.animation) { timeline in
-                let phase = timeline.date.timeIntervalSinceReferenceDate
-                WaveShape(level: progress, phase: phase, tilt: motion.tilt)
+            TimelineView(.animation(minimumInterval: 1.0 / 30, paused: !animating)) { timeline in
+                WaveShape(level: progress,
+                          phase: animating ? timeline.date.timeIntervalSinceReferenceDate : 0,
+                          tilt: animating ? TiltMotion.shared.tilt : 0,
+                          amplitude: reduceMotion ? 0 : 5)
                     .fill(goalReached ? Theme.goalGradient : Theme.liquidGradient)
             }
-            .clipShape(RoundedRectangle(cornerRadius: 60, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: radius, style: .continuous))
 
-            // Top gloss
             LinearGradient(colors: [.white.opacity(0.16), .clear],
                            startPoint: .top, endPoint: .init(x: 0.5, y: 0.35))
-                .clipShape(RoundedRectangle(cornerRadius: 60, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: radius, style: .continuous))
                 .allowsHitTesting(false)
 
-            // Readings
             VStack(spacing: 4) {
                 Text(verbatim: "\(ProgressMath.percent(total: totalML, goal: goalML))%")
-                    .font(.system(size: 52, weight: .heavy, design: .rounded))
+                    .font(.system(size: size.width * 0.26, weight: .heavy, design: .rounded))
                     .monospacedDigit()
-                    .foregroundStyle(Theme.textPrimary)
-                    .shadow(color: Theme.bg.opacity(0.5), radius: 10, y: 2)
-                    .contentTransition(.numericText())
-                if goalReached {
-                    VStack(spacing: 1) {
-                        Text("Goal reached 🎉")
-                        Text(verbatim: VolumeFormatter.string(ml: totalML, ounces: useOunces))
+                    .contentTransition(.numericText(value: Double(totalML)))
+                Group {
+                    if goalReached {
+                        Label("Goal reached", systemImage: "checkmark.seal.fill")
+                    } else {
+                        Text("\(VolumeFormat.number(totalML, unit: unit)) of \(VolumeFormat.string(goalML, unit: unit))")
                             .monospacedDigit()
                     }
-                    .font(.footnote.weight(.semibold))
-                    .foregroundStyle(Theme.textPrimary.opacity(0.85))
-                    .multilineTextAlignment(.center)
-                } else {
-                    Text("\(VolumeFormatter.string(ml: totalML, ounces: useOunces)) of \(VolumeFormatter.string(ml: goalML, ounces: useOunces))")
-                        .font(.footnote.weight(.semibold))
-                        .foregroundStyle(Theme.textPrimary.opacity(0.85))
                 }
+                .font(.footnote.weight(.semibold))
+                .opacity(0.9)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+                .padding(.horizontal, 12)
             }
+            .foregroundStyle(Theme.textPrimary)
+            .shadow(color: Theme.bg.opacity(0.45), radius: 8, y: 2)
         }
-        .frame(width: 200, height: 235)
+        .frame(width: size.width, height: size.height)
         .background(
-            LinearGradient(colors: [Theme.glassRaised, Theme.glass],
-                           startPoint: .top, endPoint: .bottom),
-            in: RoundedRectangle(cornerRadius: 60, style: .continuous))
-        .overlay(RoundedRectangle(cornerRadius: 60, style: .continuous)
+            LinearGradient(colors: [Theme.glassRaised, Theme.glass], startPoint: .top, endPoint: .bottom),
+            in: RoundedRectangle(cornerRadius: radius, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: radius, style: .continuous)
             .strokeBorder(Theme.stroke, lineWidth: 1.5))
-        .shadow(color: (goalReached ? Theme.success : Theme.aqua).opacity(0.30),
-                radius: 30, y: 18)
+        .background {
+            // Soft glow as a blurred shape, not a .shadow on the whole animated stack.
+            RoundedRectangle(cornerRadius: radius, style: .continuous)
+                .fill((goalReached ? Theme.success : Theme.aqua).opacity(0.22))
+                .blur(radius: 28)
+                .offset(y: 16)
+        }
         .animation(.spring(duration: 0.7, bounce: 0.3), value: progress)
-        .accessibilityLabel(Text(String(localized: "Progress: \(totalML) of \(goalML) millilitres")))
-        .onAppear { motion.start() }
-        .onDisappear { motion.stop() }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text("Today's progress"))
+        .accessibilityValue(Text("\(VolumeFormat.string(totalML, unit: unit)) of \(VolumeFormat.string(goalML, unit: unit)), \(ProgressMath.percent(total: totalML, goal: goalML)) percent"))
+        .onAppear {
+            isVisible = true
+            TiltMotion.shared.start()
+        }
+        .onDisappear {
+            isVisible = false
+            TiltMotion.shared.stop()
+        }
     }
 }
 
-/// Sine wave for the liquid surface, tilted opposite to the device roll
-/// so the water stays level in the real world.
+/// Sine wave for the liquid surface, tilted against the device roll.
 struct WaveShape: Shape {
-    var level: Double        // 0...1 — fill fraction
-    var phase: Double        // time, drives the wave drift
-    var tilt: Double = 0     // device roll, radians
+    var level: Double
+    var phase: Double
+    var tilt: Double = 0
     var amplitude: CGFloat = 5
 
     var animatableData: Double {
@@ -118,15 +134,14 @@ struct WaveShape: Shape {
         let amp = level >= 0.999 ? 0 : amplitude
         let slope = CGFloat(-tan(tilt))
         let midX = rect.width / 2
+        let drift = CGFloat(phase.truncatingRemainder(dividingBy: 1000)) * 0.9
 
-        path.move(to: CGPoint(x: 0, y: surfaceY + slope * (0 - midX)))
+        path.move(to: CGPoint(x: 0, y: surfaceY - slope * midX))
         var x: CGFloat = 0
         while x <= rect.width {
-            let relative = x / wavelength
-            let wave = sin((relative + CGFloat(phase.truncatingRemainder(dividingBy: 1000)) * 0.9) * 2 * .pi) * amp
-            let y = surfaceY + wave + slope * (x - midX)
-            path.addLine(to: CGPoint(x: x, y: y))
-            x += 2
+            let wave = sin((x / wavelength + drift) * 2 * .pi) * amp
+            path.addLine(to: CGPoint(x: x, y: surfaceY + wave + slope * (x - midX)))
+            x += 3
         }
         path.addLine(to: CGPoint(x: rect.width, y: rect.height))
         path.addLine(to: CGPoint(x: 0, y: rect.height))
