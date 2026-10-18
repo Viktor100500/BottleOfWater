@@ -108,6 +108,11 @@ struct RootView: View {
             .task {
                 await AppLifecycle.refresh()
             }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+                // Midnight, time zone or clock change: "today" moves, so re-read and replan.
+                WaterStore.shared.externalChange()
+                Task { await ReminderScheduler.reschedule() }
+            }
         } else {
             OnboardingView()
                 .transition(.opacity)
